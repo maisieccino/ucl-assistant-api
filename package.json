@@ -1,43 +1,58 @@
 {
+  "name": "ucl-assistant-api",
+  "version": "0.4.7",
+  "description": "Server to support the UCL Assistant app",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "get-surveys": "node ./scripts/populateSurveyList.js",
     "lint": "eslint . --ext .js --ext .jsx --cache --ignore-path .eslintignore",
     "lint:force": "eslint . --ext .js --ext .jsx --ignore-path .eslintignore",
     "lint:staged": "lint-staged",
-    "format":
-      "prettier --write --trailing-comma all {app,server}/**/*.{js,jsx}",
+    "format": "prettier --write --trailing-comma all **/*.{js,jsx}",
     "precommit": "yarn run lint:staged",
-    "test":
-      "yarn jest --ci --projects api app lib notifications && yarn run lint:force"
+    "test": "yarn jest --ci && yarn run lint:force"
+  },
+  "repository": "https://github.com/mbellgb/ucl-assistant",
+  "author": "Matthew Bell",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "jsonwebtoken": "^8.1.0",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-jwt": "^3.3.0",
+    "koa-mount": "^3.0.0",
+    "koa-router": "^7.3.0",
+    "koa-session": "^5.5.1",
+    "moment": "^2.20.1",
+    "node-fetch": "^1.7.3",
+    "raven": "^2.4.2",
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",
     "eslint": "4.9.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-node": "^3.0.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "2.7.0",
-    "eslint-plugin-jsx-a11y": "6.0.2",
     "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-react": "7.4.0",
-    "eslint-plugin-react-native": "^3.2.0",
     "husky": "^0.14.3",
     "jest": "^23.4.2",
     "lint-staged": "^5.0.0",
     "prettier": "^1.8.2"
   },
   "lint-staged": {
-    "*.{js,jsx}": ["prettier --write --trailing-comma all", "git add"]
+    "*.{js,jsx}": [
+      "prettier --write --trailing-comma all",
+      "git add"
+    ]
   },
   "jest": {
-    "testURL": "http://localhost/"
-  },
-  "name": "ucl-assistant",
-  "version": "0.1.0",
-  "description": "An app to manage your UCL life",
-  "author": "Matt Bell and UCL API",
-  "license": "MIT",
-  "private": true,
-
-  "dependencies": {
-    "node-fetch": "^2.1.2"
+    "testURL": "http://localhost/",
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ]
   }
 }

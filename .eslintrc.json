@@ -1,14 +1,8 @@
 {
-  "extends": [
-    "airbnb",
-    "prettier",
-    "prettier/flowtype",
-    "prettier/react",
-    "plugin:react-native/all"
-  ],
+  "extends": ["airbnb", "prettier", "prettier/flowtype", "import"],
   "parser": "babel-eslint",
   "env": {
-    "react-native/react-native": true
+    "node": true
   },
   "parserOptions": {
     "ecmaVersion": 8,
@@ -17,15 +11,10 @@
     }
   },
   "plugins": ["react", "react-native", "jsx-a11y", "import"],
-  "globals": {
-    "__DEV__": true
-  },
   "rules": {
     "global-require": "off",
-    "react/no-typos": "off", // until https://github.com/yannickcr/eslint-plugin-react/issues/1389 fixed
-    "react/jsx-filename-extension": "off",
-    "jsx-a11y/accessible-emoji": "off",
-    "comma-dangle": ["error", "always-multiline"]
+    "comma-dangle": ["error", "always-multiline"],
+    "no-console": 1
   },
   "overrides": [
     {

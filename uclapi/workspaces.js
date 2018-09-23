@@ -13,9 +13,9 @@ const getWorkspaces = () =>
 
 const getImage = async imageId =>
   fetch(
-    `${WORKSPACE_IMAGE_URL}?token=${process.env.UCLAPI_TOKEN}&image_id=${
-      imageId
-    }&image_format=raw`,
+    `${WORKSPACE_IMAGE_URL}?token=${
+      process.env.UCLAPI_TOKEN
+    }&image_id=${imageId}&image_format=raw`,
   );
 
 /**
@@ -39,9 +39,9 @@ const reduceSeatInfo = maps =>
 
 const getSeatingInfo = async surveyId => {
   const data = await JSONRequest(
-    `${WORKSPACE_SUMMARY_URL}?token=${process.env.UCLAPI_TOKEN}&survey_ids=${
-      surveyId
-    }`,
+    `${WORKSPACE_SUMMARY_URL}?token=${
+      process.env.UCLAPI_TOKEN
+    }&survey_ids=${surveyId}`,
   );
   const { surveys } = data;
   if (surveys.length !== 1) {
@@ -71,9 +71,9 @@ const reduceAverageData = averages => {
 
 const getHistoricSeatInfo = async surveyId => {
   const data = await JSONRequest(
-    `${WORKSPACE_HISTORIC_URL}?token=${process.env.UCLAPI_TOKEN}&survey_ids=${
-      surveyId
-    }&days=30`,
+    `${WORKSPACE_HISTORIC_URL}?token=${
+      process.env.UCLAPI_TOKEN
+    }&survey_ids=${surveyId}&days=30`,
   );
   const { surveys } = data;
   if (surveys.length !== 1) {
