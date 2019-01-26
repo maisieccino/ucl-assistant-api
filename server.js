@@ -19,7 +19,8 @@ const { version } = JSON.parse(fs.readFileSync("./package.json"));
 const sentryDsnUrl = process.env.SENTRY_DSN;
 
 if (sentryDsnUrl === undefined) {
-  console.error("Sentry DSN not provided, so error reporting will not be enabled");
+  console.error("Sentry DSN not provided!");
+  Raven.config().install();
 } else {
   Raven.config(process.env.SENTRY_DSN).install();
 }
