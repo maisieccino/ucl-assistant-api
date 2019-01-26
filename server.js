@@ -16,7 +16,13 @@ require("dotenv").config();
 
 const { version } = JSON.parse(fs.readFileSync("./package.json"));
 
-Raven.config().install();
+const sentryDsnUrl = process.env.SENTRY_DSN;
+
+if (sentryDsnUrl === undefined) {
+  console.error("Sentry DSN not provided, so error reporting will not be enabled");
+} else {
+  Raven.config(process.env.SENTRY_DSN).install();
+}
 
 const connectionString = process.env.REDIS_URL;
 
