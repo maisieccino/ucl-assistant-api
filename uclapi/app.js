@@ -8,6 +8,7 @@ const { loadOrFetch } = require("../redis");
 const {
   getWorkspaces,
   getImage,
+  getLiveImage,
   getSeatingInfo,
   getAllSeatInfo,
   getHistoricSeatInfo,
@@ -47,6 +48,15 @@ router.get("/workspaces/getimage/:id.png", jwt, async ctx => {
   ctx.response.headers["Content-Type"] = "image/png";
   ctx.state.jsonify = false;
   const res = await getImage(ctx.params.id);
+  ctx.body = res.body;
+});
+
+router.get("/workspaces/getliveimage/map.svg", jwt, async ctx => {
+  ctx.assert(ctx.query.survey_id);
+  ctx.assert(ctx.query.map_id);
+  ctx.response.headers["Content-Type"] = "image/svg+xml";
+  ctx.state.jsonify = false;
+  const res = await getLiveImage(ctx.query.survey_id, ctx.query.map_id);
   ctx.body = res.body;
 });
 

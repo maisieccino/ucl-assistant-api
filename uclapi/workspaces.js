@@ -9,13 +9,24 @@ const JSONRequest = require("../JSONRequest");
 const surveyList = require("./surveysList");
 
 const getWorkspaces = () =>
-  surveyList.surveys.map(survey => ({ name: survey.name, id: survey.id }));
+  surveyList.surveys.map(survey => ({
+    name: survey.name,
+    id: survey.id,
+    maps: survey.maps,
+  }));
 
-const getImage = async imageId =>
+const getImage = imageId =>
   fetch(
     `${WORKSPACE_IMAGE_URL}?token=${
       process.env.UCLAPI_TOKEN
     }&image_id=${imageId}&image_format=raw`,
+  );
+
+const getLiveImage = (surveyId, mapId) =>
+  fetch(
+    `${WORKSPACE_IMAGE_URL}/live?token=${
+      process.env.UCLAPI_TOKEN
+    }&survey_id=${surveyId}&map_id=${mapId}`,
   );
 
 /**
@@ -99,6 +110,7 @@ module.exports = {
   reduceAverageData,
   getWorkspaces,
   getImage,
+  getLiveImage,
   getSeatingInfo,
   getAllSeatInfo,
   getHistoricSeatInfo,

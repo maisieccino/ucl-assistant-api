@@ -20,6 +20,13 @@ router.get("/", async ctx => {
           date: "filter by date.",
         },
       },
+      "/workspaces/getliveimage/map.svg": {
+        description: "Returns live SVG map",
+        parameters: {
+          survey_id: "the id of the survey to be mapped",
+          map_id: "the id of the map, i.e. floor, wing, etc. See /workspaces.",
+        },
+      },
       "/ping": "returns a 200 OK message. good for testing liveness",
       "/echo": "returns the HTTP message body as the content",
     },
