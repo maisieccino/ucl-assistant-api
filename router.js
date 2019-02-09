@@ -10,7 +10,6 @@ router.get("/", async ctx => {
   ctx.query.pretty = true;
   ctx.body = {
     routes: {
-      "/session": "Returns the currently authenticated user's session",
       "/connect/uclapi": "Authorise via the UCL API",
       "/connect/uclapi/callback": "Callback from the UCL API",
       "/user": "Get information about the currently authenticated user.",
