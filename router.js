@@ -10,7 +10,6 @@ router.get("/", async ctx => {
   ctx.query.pretty = true;
   ctx.body = {
     routes: {
-      "/session": "Returns the currently authenticated user's session",
       "/connect/uclapi": "Authorise via the UCL API",
       "/connect/uclapi/callback": "Callback from the UCL API",
       "/user": "Get information about the currently authenticated user.",
@@ -20,6 +19,23 @@ router.get("/", async ctx => {
           date: "filter by date.",
         },
       },
+      "/search": {
+        description: "Returns matching people and information about them",
+        parameters: {
+          query: "Name of the person you are searching for.",
+        },
+      },
+      "/workspaces": "Returns all available workspaces",
+      "/workspaces/summary":
+        "Returns summarised data about the occupancy of " +
+        "all available workspaces",
+      "/workspaces/historic": {
+        description: "Returns historic data about the occupancy of a workspace",
+        parameters: {
+          id: "specify survey id for which you want historic data",
+        },
+      },
+      "/workspaces/:id/seatinfo": "returns data for a specific workspace",
       "/workspaces/getliveimage/map.svg": {
         description: "Returns live SVG map",
         parameters: {
