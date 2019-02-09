@@ -9,13 +9,25 @@ const JSONRequest = require("../JSONRequest");
 const surveyList = require("./surveysList");
 
 const getWorkspaces = () =>
-  surveyList.surveys.map(survey => ({ name: survey.name, id: survey.id }));
+  surveyList.surveys.map(survey => ({
+    name: survey.name,
+    id: survey.id,
+    maps: survey.maps.map(({ name, image_id }) => ({
+      name,
+      image_id,
+    })),
+  }));
 
-const getImage = async imageId =>
+const getImage = imageId =>
   fetch(
     `${WORKSPACE_IMAGE_URL}?token=${
       process.env.UCLAPI_TOKEN
     }&image_id=${imageId}&image_format=raw`,
+    {
+      headers: {
+        "Content-Type": "image/png",
+      },
+    },
   );
 
 /**
