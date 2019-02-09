@@ -23,20 +23,22 @@ router.get("/", async ctx => {
       "/search": {
         description: "Returns matching people and information about them",
         parameters: {
-          query: "Name of the person you are searching for."
+          query: "Name of the person you are searching for.",
         },
       },
       "/workspaces": "Returns all available workspaces",
-      "/workspaces/summary": "Returns summarised data about the occupancy of \
-                              all available workspaces",
+      "/workspaces/summary":
+        "Returns summarised data about the occupancy of " +
+        "all available workspaces",
       "/workspaces/historic": {
         description: "Returns historic data about the occupancy of a workspace",
         parameters: {
-          id: "specify survey id for which you want historic data"
+          id: "specify survey id for which you want historic data",
         },
       },
       "/workspaces/:id/seatinfo": "returns data for a specific workspace",
-      "/workspaces/getimage/:id.png": "returns live seating map given an image id",
+      "/workspaces/getimage/:id.png":
+        "returns live seating map given an image id",
       "/ping": "returns a 200 OK message. good for testing liveness",
       "/echo": "returns the HTTP message body as the content",
     },
