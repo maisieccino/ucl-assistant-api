@@ -3,7 +3,8 @@ const Router = require("koa-router");
 const { jwt } = require("../middleware/auth");
 const { getUserData } = require("./user");
 const { getPersonalTimetable } = require("./timetable");
-const { search } = require("./people");
+const { peopleSearch } = require("./people");
+const { roomsSearch } = require("./rooms");
 const { loadOrFetch } = require("../redis");
 const {
   getWorkspaces,
@@ -34,13 +35,22 @@ router.get("/timetable", jwt, async ctx => {
   ctx.body = await getPersonalTimetable(ctx.state.user.apiToken, date);
 });
 
-router.get("/search", jwt, async ctx => {
+router.get("/search/people", jwt, async ctx => {
   ctx.assert(
     (ctx.query.query || "").length >= 3,
     400,
     "Query must be at least three characters long",
   );
-  ctx.body = await search(ctx.query.query);
+  ctx.body = await peopleSearch(ctx.query.query);
+});
+
+router.get("/search/rooms", jwt, async ctx => {
+  ctx.assert(
+    (ctx.query.query || "").length >= 3,
+    400,
+    "Query must be at least four characters long",
+  );
+  ctx.body = await roomsSearch(ctx.query.query);
 });
 
 router.get("/workspaces/getimage/:id.png", jwt, async ctx => {

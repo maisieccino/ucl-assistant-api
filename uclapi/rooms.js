@@ -1,16 +1,16 @@
-const { PEOPLE_SEARCH_URL } = require("./constants");
+const { ROOMS_SEARCH_URL } = require("./constants");
 const JSONRequest = require("../JSONRequest");
 
-const peopleSearch = async query => {
+const roomsSearch = async query => {
   if (!query || query.length <= 3) {
     throw new Error("Must provide a query!");
   }
 
-  const url = `${PEOPLE_SEARCH_URL}?token=${
+  const url = `${ROOMS_SEARCH_URL}?token=${
     process.env.UCLAPI_TOKEN
-  }&query=${query}`;
+  }&roomname=${query}`;
 
   return JSONRequest(url);
 };
 
-module.exports = { peopleSearch };
+module.exports = { roomsSearch };
