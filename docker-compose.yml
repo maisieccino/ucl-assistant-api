@@ -5,22 +5,12 @@ services:
     build: .
     image: ucl-assistant-api
     env_file: .env
-    environment:
-      - REDIS_URL=redis://redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180
     ports:
       - "127.0.0.1:3000:3000"
-    networks:
-      - redis-net
     depends_on:
       - redis
 
   redis:
     image: redis:alpine
-    hostname: redis
     ports:
       - '127.0.0.1:6379:6379'
-    networks:
-      - redis-net
-
-networks:
-  redis-net:
