@@ -19,10 +19,16 @@ router.get("/", async ctx => {
           date: "filter by date.",
         },
       },
-      "/search": {
+      "/search/people": {
         description: "Returns matching people and information about them",
         parameters: {
           query: "Name of the person you are searching for.",
+        },
+      },
+      "/search/rooms": {
+        description: "Returns matching rooms and information about them",
+        parameters: {
+          query: "Name of room you are searching for",
         },
       },
       "/workspaces": "Returns all available workspaces",
