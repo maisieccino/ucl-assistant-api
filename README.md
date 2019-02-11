@@ -6,6 +6,11 @@ can pull and run straight away. We recommend using a `.env` file for storing
 your environment variables, but you could also just pass them into your docker
 run command.
 
+To run it locally, you can also use docker-compose:
+
+    docker-compose build
+    docker-compose up
+
 # Secrets
 
 Copy example file and add your UCL API client ID and secret keys. Also, set
