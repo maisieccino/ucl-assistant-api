@@ -103,6 +103,12 @@ const getAllSeatInfo = async () => {
     ...reduceSeatInfo(survey.maps),
     name: survey.name,
     id: survey.id,
+    maps: survey.maps.map(map => ({
+      id: map.id,
+      name: map.name,
+      occupied: map.sensors_occupied,
+      capacity: map.sensors_absent + map.sensors_other + map.sensors_occupied,
+    })),
   }));
 };
 
