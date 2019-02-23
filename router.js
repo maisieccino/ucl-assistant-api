@@ -78,7 +78,6 @@ router.get("/echo", async ctx => {
 
 // route not found.
 router.get(/.*/, async ctx => {
-  console.log("yo");
   ctx.throw(404, "Not found");
 });
 

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const fs = require("fs");
 const Koa = require("koa");
 const bodyparser = require("koa-bodyparser");
@@ -11,8 +13,6 @@ const Raven = require("raven");
 const router = require("./router");
 const { app: UCLAPI } = require("./uclapi");
 const { app: notifications } = require("./notifications");
-
-require("dotenv").config();
 
 const { version } = JSON.parse(fs.readFileSync("./package.json"));
 
