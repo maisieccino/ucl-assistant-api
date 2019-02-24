@@ -31,6 +31,13 @@ router.get("/", async ctx => {
           query: "Name of room you are searching for",
         },
       },
+      "/equipment": {
+        description: "Returns the equipment in the specified room",
+        parameters: {
+          roomid: "Room id of the room in question",
+          siteid: "Site id of the room in question",
+        },
+      },
       "/workspaces": "Returns all available workspaces",
       "/workspaces/summary":
         "Returns summarised data about the occupancy of " +
@@ -49,6 +56,14 @@ router.get("/", async ctx => {
           map_id: "the id of the map, i.e. floor, wing, etc. See /workspaces.",
         },
       },
+      "/roombookings": {
+        description: "Returns non-departmental bookings",
+        parameters: {
+          roomid: "Room id for the room to fetch bookings for",
+          date: "Date expressed in ISO8601, i.e. YYYYMMDD",
+        },
+      },
+      "/freerooms": "Returns all rooms free between now end the end of the day",
       "/ping": "returns a 200 OK message. good for testing liveness",
       "/echo": "returns the HTTP message body as the content",
     },
