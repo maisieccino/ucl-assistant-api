@@ -59,11 +59,12 @@ router.get("/", async ctx => {
       "/roombookings": {
         description: "Returns non-departmental bookings",
         parameters: {
-          roomid: "Room id for the room to fetch bookings for",
+          roomid: "Room id of the room to fetch bookings for",
+          siteid: "Site id of the room to fetch bookings for",
           date: "Date expressed in ISO8601, i.e. YYYYMMDD",
         },
       },
-      "/freerooms": "Returns all rooms free between now end the end of the day",
+      "/freerooms": "Returns all rooms free between now and the end of the day",
       "/ping": "returns a 200 OK message. good for testing liveness",
       "/echo": "returns the HTTP message body as the content",
     },

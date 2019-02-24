@@ -109,9 +109,11 @@ router.get("/workspaces", jwt, async ctx => {
 
 router.get("/roombookings", jwt, async ctx => {
   ctx.assert(ctx.query.roomid, 400, "Please include a roomid");
+  ctx.assert(ctx.query.siteid, 400, "Please include a siteid");
   ctx.assert(ctx.query.date, 400, "Please include a date");
   ctx.body = await getRoomBookings({
     roomid: ctx.query.roomid,
+    siteid: ctx.query.siteid,
     date: ctx.query.date,
   });
 });

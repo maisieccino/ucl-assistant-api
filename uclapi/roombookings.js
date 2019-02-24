@@ -7,12 +7,15 @@ const JSONRequest = require("../JSONRequest");
 
 const { UCLAPI_TOKEN } = process.env;
 
-const getRoomBookings = async ({ roomid, date }) => {
+const getRoomBookings = async ({ roomid, siteid, date }) => {
   if (!roomid) {
     throw new Error("Must provide a roomid!");
   }
+  if (!siteid) {
+    throw new Error("Must provide a siteid");
+  }
 
-  const url = `${ROOMBOOKINGS_DATA_URL}?token=${UCLAPI_TOKEN}&roomid=${roomid}&date=${date}`;
+  const url = `${ROOMBOOKINGS_DATA_URL}?token=${UCLAPI_TOKEN}&roomid=${roomid}&siteid=${siteid}&date=${date}`;
 
   return JSONRequest(url);
 };
