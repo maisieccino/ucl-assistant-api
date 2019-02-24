@@ -4,8 +4,9 @@ const { jwt } = require("../middleware/auth");
 const { getUserData } = require("./user");
 const { getPersonalTimetable } = require("./timetable");
 const { peopleSearch } = require("./people");
-const { roomsSearch } = require("./rooms");
+const { roomsSearch, getEquipment } = require("./rooms");
 const { loadOrFetch } = require("../redis");
+const { getRoomBookings, getFreeRooms } = require("./roombookings");
 const {
   getWorkspaces,
   getImage,
@@ -53,6 +54,12 @@ router.get("/search/rooms", jwt, async ctx => {
   ctx.body = await roomsSearch(ctx.query.query);
 });
 
+router.get("/equipment", jwt, async ctx => {
+  ctx.assert(ctx.query.roomid, "Must specify roomid");
+  ctx.assert(ctx.query.siteid, "Must specify siteid");
+  ctx.body = await getEquipment(ctx.query.roomid, ctx.query.siteid);
+});
+
 router.get("/workspaces/getimage/:id.png", jwt, async ctx => {
   ctx.assert(ctx.params.id, 400);
   ctx.response.headers["Content-Type"] = "image/png";
@@ -98,6 +105,21 @@ router.get("/workspaces/:id/seatinfo", jwt, async ctx => {
 
 router.get("/workspaces", jwt, async ctx => {
   ctx.body = getWorkspaces();
+});
+
+router.get("/roombookings", jwt, async ctx => {
+  ctx.assert(ctx.query.roomid, 400, "Please include a roomid");
+  ctx.assert(ctx.query.siteid, 400, "Please include a siteid");
+  ctx.assert(ctx.query.date, 400, "Please include a date");
+  ctx.body = await getRoomBookings({
+    roomid: ctx.query.roomid,
+    siteid: ctx.query.siteid,
+    date: ctx.query.date,
+  });
+});
+
+router.get("/freerooms", jwt, async ctx => {
+  ctx.body = await getFreeRooms();
 });
 
 app.use(router.routes());

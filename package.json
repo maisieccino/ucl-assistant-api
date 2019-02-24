@@ -5,15 +5,16 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "start:dev": "nodemon server",
     "get-surveys": "node ./scripts/populateSurveyList.js",
     "lint": "eslint . --ext .js --ext .jsx --cache --ignore-path .eslintignore",
     "lint:force": "eslint . --ext .js --ext .jsx --ignore-path .eslintignore",
     "lint:staged": "lint-staged",
-    "format": "prettier --write --trailing-comma all **/*.{js,jsx}",
+    "format": "prettier --config .prettierrc.json --write all **/*.{js,jsx}",
     "precommit": "yarn run lint:staged",
     "test": "yarn jest --ci && yarn run lint:force"
   },
-  "repository": "https://github.com/mbellgb/ucl-assistant",
+  "repository": "https://github.com/uclapi/ucl-assistant",
   "author": "Matthew Bell",
   "license": "MIT",
   "private": true,
@@ -41,11 +42,12 @@
     "husky": "^0.14.3",
     "jest": "^23.4.2",
     "lint-staged": "^5.0.0",
-    "prettier": "^1.8.2"
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4"
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "prettier --write --trailing-comma all",
+      "prettier --config .prettierrc.json --write all",
       "git add"
     ]
   },
