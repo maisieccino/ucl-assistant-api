@@ -38,11 +38,11 @@ const getLiveImage = (surveyId, mapId) =>
 const reduceSeatInfo = maps =>
   maps.reduce(
     (obj, map) => {
-      const capacity =
+      const mapCapacity =
         map.sensors_absent + map.sensors_other + map.sensors_occupied;
       return {
         occupied: obj.occupied + map.sensors_occupied,
-        total: obj.total + capacity,
+        total: obj.total + mapCapacity,
       };
     },
     { occupied: 0, total: 0 },
@@ -107,7 +107,7 @@ const getAllSeatInfo = async () => {
       id: map.id,
       name: map.name,
       occupied: map.sensors_occupied,
-      capacity: map.sensors_absent + map.sensors_other + map.sensors_occupied,
+      total: map.sensors_absent + map.sensors_other + map.sensors_occupied,
     })),
   }));
 };
