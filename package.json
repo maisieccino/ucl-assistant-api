@@ -27,7 +27,7 @@
     "koa-mount": "^3.0.0",
     "koa-router": "^7.3.0",
     "koa-session": "^5.5.1",
-    "moment": "^2.20.1",
+    "moment": "^2.24.0",
     "node-fetch": "^1.7.3",
     "raven": "^2.4.2",
     "redis": "^2.8.0"
