@@ -13,6 +13,13 @@ const jwtVerify = koaJwt({
   secret: process.env.SECRET,
 });
 
+// bypass JWT auth for local development
+const jwtVerifyDev = (ctx, next) => next();
+
 const genToken = user => jwt.sign(user, process.env.SECRET);
 
-module.exports = { authenticate, jwt: jwtVerify, genToken };
+module.exports = {
+  authenticate,
+  jwt: process.env.NODE_ENV === "development" ? jwtVerifyDev : jwtVerify,
+  genToken,
+};
