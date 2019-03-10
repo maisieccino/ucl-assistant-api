@@ -1,5 +1,7 @@
 const fetch = require("node-fetch");
+const axios = require("axios");
 const moment = require("moment");
+const gm = require("gm");
 const {
   WORKSPACE_IMAGE_URL,
   WORKSPACE_SUMMARY_URL,
@@ -22,12 +24,39 @@ const getImage = imageId =>
     }&image_id=${imageId}&image_format=raw`,
   );
 
-const getLiveImage = (surveyId, mapId) =>
-  fetch(
+const getLiveImage = async (surveyId, mapId) => {
+  // const res = await fetch(
+  //   `${WORKSPACE_IMAGE_URL}/live?token=${
+  //     process.env.UCLAPI_TOKEN
+  //   }&survey_id=${surveyId}&map_id=${mapId}`,
+  // );
+  const res = await axios.get(
     `${WORKSPACE_IMAGE_URL}/live?token=${
       process.env.UCLAPI_TOKEN
     }&survey_id=${surveyId}&map_id=${mapId}`,
+    {
+      responseType: "stream",
+    },
   );
+  const img = await new Promise((resolve, reject) => {
+    // console.log(res.data)
+    console.log(
+      gm(res.data)
+        .setFormat("png")
+        .write("composite.png", function(err) {
+          console.log(err);
+        }),
+    );
+
+    // .toBuffer('png', (error, buffer) => {
+    //   if(error){
+    //     reject(error)
+    //   }
+    //   resolve(buffer)
+    // })
+  });
+  return img;
+};
 
 /**
  * Takes a list of maps, returns a an object with number of occupied seats

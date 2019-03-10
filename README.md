@@ -11,6 +11,22 @@ To run it locally, you can also use docker-compose:
     docker-compose build
     docker-compose up
 
+# Non-Docker Development
+
+Install and start `redis-server`:
+
+    apt install redis-server
+    service redis-server start
+
+Install `graphicsmagick`:
+
+    apt install graphicsmagick
+
+Run the auto-reloading nodemon server:
+
+    yarn run start:dev
+
+
 # Secrets
 
 Copy example file and add your UCL API client ID and secret keys. Also, set

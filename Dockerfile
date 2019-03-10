@@ -9,6 +9,7 @@ ENV UCLAPI_CLIENT_ID ""
 ENV UCLAPI_CLIENT_SECRET ""
 ENV SECRET ""
 
+RUN apk add --no-cache graphicsmagick
 RUN apk add --no-cache tini
 ENTRYPOINT ["/sbin/tini", "--"]
 
