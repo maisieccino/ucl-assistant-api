@@ -21,7 +21,7 @@
   "dependencies": {
     "dotenv": "^7.0.0",
     "jsonwebtoken": "^8.1.0",
-    "koa": "^2.4.1",
+    "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.0",
     "koa-jwt": "^3.3.0",
     "koa-mount": "^3.0.0",
