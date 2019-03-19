@@ -19,7 +19,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "dotenv": "^4.0.0",
+    "dotenv": "^7.0.0",
     "jsonwebtoken": "^8.1.0",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
