@@ -20,12 +20,16 @@ const {
   WORKSPACE_HISTORIC_DATA_PATH,
   WORKSPACE_SURVEYS_PATH,
   WORKSPACE_EQUIPMENT_PATH,
+  PEOPLE_SEARCH_PATH,
+  ROOMS_SEARCH_PATH,
 } = require("../redis/keys");
 const {
   WORKSPACE_SUMMARY_TTL,
   WORKSPACE_HISTORIC_DATA_TTL,
   WORKSPACE_SURVEYS_TTL,
   WORKSPACE_EQUIPMENT_TTL,
+  PEOPLE_SEARCH_TTL,
+  ROOMS_SEARCH_TTL,
 } = require("../redis/ttl");
 
 const app = new Koa();
@@ -46,7 +50,13 @@ router.get("/search/people", jwt, async ctx => {
     400,
     "Query must be at least three characters long",
   );
-  ctx.body = await peopleSearch(ctx.query.query);
+  const data = await loadOrFetch(
+    ctx,
+    `${PEOPLE_SEARCH_PATH}/${ctx.query.query}`,
+    async () => peopleSearch(ctx.query.query),
+    PEOPLE_SEARCH_TTL,
+  );
+  ctx.body = data;
 });
 
 router.get("/search/rooms", jwt, async ctx => {
@@ -55,7 +65,13 @@ router.get("/search/rooms", jwt, async ctx => {
     400,
     "Query must be at least four characters long",
   );
-  ctx.body = await roomsSearch(ctx.query.query);
+  const data = await loadOrFetch(
+    ctx,
+    `${ROOMS_SEARCH_PATH}/${ctx.query.query}`,
+    async () => roomsSearch(ctx.query.query),
+    ROOMS_SEARCH_TTL,
+  );
+  ctx.body = data;
 });
 
 router.get("/equipment", jwt, async ctx => {
