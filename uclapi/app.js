@@ -130,10 +130,13 @@ router.get("/workspaces/:id/seatinfo", jwt, async ctx => {
 });
 
 router.get("/workspaces", jwt, async ctx => {
+  const surveyFilter = ctx.query.survey_filter
+    ? ctx.query.survey_filter
+    : "student";
   ctx.body = await loadOrFetch(
     ctx,
-    WORKSPACE_SURVEYS_PATH,
-    async () => getWorkspaces(),
+    `${WORKSPACE_SURVEYS_PATH}/${surveyFilter}`,
+    async () => getWorkspaces(surveyFilter),
     WORKSPACE_SURVEYS_TTL,
   );
 });
