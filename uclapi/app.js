@@ -18,10 +18,14 @@ const {
 const {
   WORKSPACE_SUMMARY_PATH,
   WORKSPACE_HISTORIC_DATA_PATH,
+  WORKSPACE_SURVEYS_PATH,
+  WORKSPACE_EQUIPMENT_PATH,
 } = require("../redis/keys");
 const {
   WORKSPACE_SUMMARY_TTL,
   WORKSPACE_HISTORIC_DATA_TTL,
+  WORKSPACE_SURVEYS_TTL,
+  WORKSPACE_EQUIPMENT_TTL,
 } = require("../redis/ttl");
 
 const app = new Koa();
@@ -57,7 +61,13 @@ router.get("/search/rooms", jwt, async ctx => {
 router.get("/equipment", jwt, async ctx => {
   ctx.assert(ctx.query.roomid, "Must specify roomid");
   ctx.assert(ctx.query.siteid, "Must specify siteid");
-  ctx.body = await getEquipment(ctx.query.roomid, ctx.query.siteid);
+  const data = await loadOrFetch(
+    ctx,
+    `${WORKSPACE_EQUIPMENT_PATH}/${ctx.query.roomid}/${ctx.query.siteid}`,
+    async () => getEquipment(ctx.query.roomid, ctx.query.siteid),
+    WORKSPACE_EQUIPMENT_TTL,
+  );
+  ctx.body = data;
 });
 
 router.get("/workspaces/getimage/:id.png", jwt, async ctx => {
@@ -104,7 +114,12 @@ router.get("/workspaces/:id/seatinfo", jwt, async ctx => {
 });
 
 router.get("/workspaces", jwt, async ctx => {
-  ctx.body = getWorkspaces();
+  ctx.body = await loadOrFetch(
+    ctx,
+    WORKSPACE_SURVEYS_PATH,
+    async () => getWorkspaces(),
+    WORKSPACE_SURVEYS_TTL,
+  );
 });
 
 router.get("/roombookings", jwt, async ctx => {

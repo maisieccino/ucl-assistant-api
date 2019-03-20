@@ -1,5 +1,7 @@
 const WORKSPACE_PATH = "/workspaces";
 module.exports = {
+  WORKSPACE_SURVEYS_PATH: `${WORKSPACE_PATH}/surveys`,
   WORKSPACE_SUMMARY_PATH: `${WORKSPACE_PATH}/summary`,
   WORKSPACE_HISTORIC_DATA_PATH: `${WORKSPACE_PATH}/historic`,
+  WORKSPACE_EQUIPMENT_PATH: `${WORKSPACE_PATH}/equipment`,
 };
