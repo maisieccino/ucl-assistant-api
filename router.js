@@ -38,7 +38,12 @@ router.get("/", async ctx => {
           siteid: "Site id of the room in question",
         },
       },
-      "/workspaces": "Returns all available workspaces",
+      "/workspaces": {
+        description: "Returns all available workspaces",
+        parameters: {
+          survey_filter: "Optional parameter which defaults to 'student'.",
+        },
+      },
       "/workspaces/summary":
         "Returns summarised data about the occupancy of " +
         "all available workspaces",

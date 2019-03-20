@@ -4,16 +4,18 @@ const {
   WORKSPACE_IMAGE_URL,
   WORKSPACE_SUMMARY_URL,
   WORKSPACE_HISTORIC_URL,
+  WORKSPACE_SURVEYS_URL,
 } = require("./constants");
 const JSONRequest = require("../JSONRequest");
-const surveyList = require("./surveysList");
 
-const getWorkspaces = () =>
-  surveyList.surveys.map(survey => ({
-    name: survey.name,
-    id: survey.id,
-    maps: survey.maps,
-  }));
+const getWorkspaces = async (surveyFilter = "student") => {
+  const data = await JSONRequest(
+    `${WORKSPACE_SURVEYS_URL}?token=${
+      process.env.UCLAPI_TOKEN
+    }&survey_filter=${surveyFilter}`,
+  );
+  return data.surveys;
+};
 
 const getImage = imageId =>
   fetch(
