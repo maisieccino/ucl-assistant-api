@@ -11,7 +11,6 @@
     "lint:force": "eslint . --ext .js --ext .jsx --ignore-path .eslintignore",
     "lint:staged": "lint-staged",
     "format": "prettier --config .prettierrc.json --write all **/*.{js,jsx}",
-    "precommit": "yarn run lint:staged",
     "test": "yarn jest --ci && yarn run lint:force"
   },
   "repository": "https://github.com/uclapi/ucl-assistant",
@@ -56,5 +55,10 @@
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint:staged"
+    }
   }
 }
