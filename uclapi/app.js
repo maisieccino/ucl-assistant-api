@@ -18,10 +18,18 @@ const {
 const {
   WORKSPACE_SUMMARY_PATH,
   WORKSPACE_HISTORIC_DATA_PATH,
+  WORKSPACE_SURVEYS_PATH,
+  WORKSPACE_EQUIPMENT_PATH,
+  PEOPLE_SEARCH_PATH,
+  ROOMS_SEARCH_PATH,
 } = require("../redis/keys");
 const {
   WORKSPACE_SUMMARY_TTL,
   WORKSPACE_HISTORIC_DATA_TTL,
+  WORKSPACE_SURVEYS_TTL,
+  WORKSPACE_EQUIPMENT_TTL,
+  PEOPLE_SEARCH_TTL,
+  ROOMS_SEARCH_TTL,
 } = require("../redis/ttl");
 
 const app = new Koa();
@@ -42,7 +50,13 @@ router.get("/search/people", jwt, async ctx => {
     400,
     "Query must be at least three characters long",
   );
-  ctx.body = await peopleSearch(ctx.query.query);
+  const data = await loadOrFetch(
+    ctx,
+    `${PEOPLE_SEARCH_PATH}/${ctx.query.query}`,
+    async () => peopleSearch(ctx.query.query),
+    PEOPLE_SEARCH_TTL,
+  );
+  ctx.body = data;
 });
 
 router.get("/search/rooms", jwt, async ctx => {
@@ -51,18 +65,30 @@ router.get("/search/rooms", jwt, async ctx => {
     400,
     "Query must be at least four characters long",
   );
-  ctx.body = await roomsSearch(ctx.query.query);
+  const data = await loadOrFetch(
+    ctx,
+    `${ROOMS_SEARCH_PATH}/${ctx.query.query}`,
+    async () => roomsSearch(ctx.query.query),
+    ROOMS_SEARCH_TTL,
+  );
+  ctx.body = data;
 });
 
 router.get("/equipment", jwt, async ctx => {
   ctx.assert(ctx.query.roomid, "Must specify roomid");
   ctx.assert(ctx.query.siteid, "Must specify siteid");
-  ctx.body = await getEquipment(ctx.query.roomid, ctx.query.siteid);
+  const data = await loadOrFetch(
+    ctx,
+    `${WORKSPACE_EQUIPMENT_PATH}/${ctx.query.roomid}/${ctx.query.siteid}`,
+    async () => getEquipment(ctx.query.roomid, ctx.query.siteid),
+    WORKSPACE_EQUIPMENT_TTL,
+  );
+  ctx.body = data;
 });
 
 router.get("/workspaces/getimage/:id.png", jwt, async ctx => {
   ctx.assert(ctx.params.id, 400);
-  ctx.set({ "Content-Type" : "image/png" })
+  ctx.set({ "Content-Type": "image/png" });
   ctx.state.jsonify = false;
   const res = await getImage(ctx.params.id);
   ctx.body = res.body;
@@ -71,7 +97,7 @@ router.get("/workspaces/getimage/:id.png", jwt, async ctx => {
 router.get("/workspaces/getliveimage/map.svg", jwt, async ctx => {
   ctx.assert(ctx.query.survey_id);
   ctx.assert(ctx.query.map_id);
-  ctx.set({ "Content-Type" : "image/svg+xml" })
+  ctx.set({ "Content-Type": "image/svg+xml" });
   ctx.state.jsonify = false;
   const res = await getLiveImage(ctx.query.survey_id, ctx.query.map_id);
   ctx.body = res.body;
@@ -104,7 +130,15 @@ router.get("/workspaces/:id/seatinfo", jwt, async ctx => {
 });
 
 router.get("/workspaces", jwt, async ctx => {
-  ctx.body = getWorkspaces();
+  const surveyFilter = ctx.query.survey_filter
+    ? ctx.query.survey_filter
+    : "student";
+  ctx.body = await loadOrFetch(
+    ctx,
+    `${WORKSPACE_SURVEYS_PATH}/${surveyFilter}`,
+    async () => getWorkspaces(surveyFilter),
+    WORKSPACE_SURVEYS_TTL,
+  );
 });
 
 router.get("/roombookings", jwt, async ctx => {
