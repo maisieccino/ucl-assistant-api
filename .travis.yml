@@ -16,6 +16,5 @@ jobs:
   include:
     - stage: testing
       script:
-        - echo $REDIS_URL
         - yarn run start &
         - yarn run test
