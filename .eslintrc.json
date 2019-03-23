@@ -1,24 +1,25 @@
 {
-  "extends": ["airbnb", "prettier", "prettier/flowtype", "import"],
+  "extends": [
+    "prettier",
+    "prettier/flowtype",
+    "import"
+  ],
   "parser": "babel-eslint",
   "env": {
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": 8,
-    "ecmaFeatures": {
-      "jsx": true
-    }
+    "ecmaVersion": 8
   },
-  "plugins": ["react", "react-native", "jsx-a11y", "import"],
+  "plugins": ["import"],
   "rules": {
     "global-require": "off",
     "comma-dangle": ["error", "always-multiline"],
-    "no-console": 1
+    "no-console": "off"
   },
   "overrides": [
     {
-      "files": ["**/__tests__/*.{js,jsx}", "*.test.js"],
+      "files": ["**/__tests__/*.{js}", "*.test.js"],
       "env": {
         "jest": true
       }
@@ -40,7 +41,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".android.js", ".ios.js"]
+        "extensions": [".js"]
       }
     }
   }
