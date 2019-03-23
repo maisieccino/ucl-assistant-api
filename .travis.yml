@@ -16,5 +16,5 @@ jobs:
   include:
     - stage: testing
       script:
-        - yarn run &
-        - yarn test
+        - yarn run start &
+        - yarn run test
