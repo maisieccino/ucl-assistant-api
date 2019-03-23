@@ -1,5 +1,5 @@
 const moment = require("moment");
-const { API_URL } = require("../uclapi/constants.js");
+const { API_URL } = require("../constants/apiRoutes");
 
 module.exports = async ctx => {
   ctx.session = {

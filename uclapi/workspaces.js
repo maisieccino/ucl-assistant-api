@@ -5,8 +5,8 @@ const {
   WORKSPACE_SUMMARY_URL,
   WORKSPACE_HISTORIC_URL,
   WORKSPACE_SURVEYS_URL,
-} = require("./constants");
-const JSONRequest = require("../JSONRequest");
+} = require("../constants/apiRoutes");
+const JSONRequest = require("../JSONRequest").JSONRequest;
 
 const getWorkspaces = async (surveyFilter = "student") => {
   const data = await JSONRequest(

@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-module.exports = async (url, { headers = {}, ...options } = {}) => {
+const JSONRequest = async (url, { headers = {}, ...options } = {}) => {
   const res = await fetch(url, {
     ...options,
     headers: {
@@ -31,3 +31,5 @@ module.exports = async (url, { headers = {}, ...options } = {}) => {
   }
   return json;
 };
+
+module.exports = { JSONRequest };
