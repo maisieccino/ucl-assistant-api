@@ -44,3 +44,9 @@ $ kubectl create -f ../deployment/backend-service.yaml
 ```
 
 And then the service will start up as `ucl-assistant-backend`.
+
+# Running Tests
+
+Run `yarn test:dev` to run Jest in interactive mode where it'll re-run all tests as you develop.
+
+To run tests on an ad hoc bases, use `yarn test`
