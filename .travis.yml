@@ -1,6 +1,6 @@
 language: node_js
 services:
-  - docker
+  - redis-server
 node_js:
   - lts/*
 dist: trusty
@@ -12,10 +12,9 @@ install:
   - sudo apt-get update -qq && sudo apt-get install -y -qq yarn yarn
   # install devDependencies so we can run tests
   - yarn install --production=false --skip-integrity-check --non-interactive --no-progress
-  - docker-compose build
 jobs:
   include:
     - stage: testing
       script:
-        - docker-compose up -d
+        - yarn run &
         - yarn test
