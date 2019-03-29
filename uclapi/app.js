@@ -88,7 +88,7 @@ router.get("/equipment", jwt, async ctx => {
 
 router.get("/workspaces/getimage/:id.png", jwt, async ctx => {
   ctx.assert(ctx.params.id, 400);
-  ctx.response.headers["Content-Type"] = "image/png";
+  ctx.set({ "Content-Type": "image/png" });
   ctx.state.jsonify = false;
   const res = await getImage(ctx.params.id);
   ctx.body = res.body;
@@ -97,7 +97,7 @@ router.get("/workspaces/getimage/:id.png", jwt, async ctx => {
 router.get("/workspaces/getliveimage/map.svg", jwt, async ctx => {
   ctx.assert(ctx.query.survey_id);
   ctx.assert(ctx.query.map_id);
-  ctx.response.headers["Content-Type"] = "image/svg+xml";
+  ctx.set({ "Content-Type": "image/svg+xml" });
   ctx.state.jsonify = false;
   const res = await getLiveImage(ctx.query.survey_id, ctx.query.map_id);
   ctx.body = res.body;
