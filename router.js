@@ -59,6 +59,9 @@ router.get("/", async ctx => {
         parameters: {
           survey_id: "the id of the survey to be mapped",
           map_id: "the id of the map, i.e. floor, wing, etc. See /workspaces.",
+          circle_radius: "radius of each circle. default is 128",
+          absent_colour: "hex code of colour denoting vacant seat",
+          occupied_colour: "hex code of colour denoting occupied seat",
         },
       },
       "/roombookings": {
