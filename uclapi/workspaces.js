@@ -8,6 +8,9 @@ const {
 } = require("./constants");
 const JSONRequest = require("../JSONRequest");
 
+const DEFAULT_ABSENT_COLOUR = "#00FF00";
+const DEFAULT_OCCUPIED_COLOUR = "#880000";
+
 const getWorkspaces = async (surveyFilter = "student") => {
   const data = await JSONRequest(
     `${WORKSPACE_SURVEYS_URL}?token=${
@@ -24,11 +27,19 @@ const getImage = imageId =>
     }&image_id=${imageId}&image_format=raw`,
   );
 
-const getLiveImage = (surveyId, mapId) =>
+const getLiveImage = ({
+  surveyId,
+  mapId,
+  circleRadius = 128,
+  absentColour = DEFAULT_ABSENT_COLOUR,
+  occupiedColour = DEFAULT_OCCUPIED_COLOUR,
+}) =>
   fetch(
     `${WORKSPACE_IMAGE_URL}/live?token=${
       process.env.UCLAPI_TOKEN
-    }&survey_id=${surveyId}&map_id=${mapId}`,
+    }&survey_id=${surveyId}&map_id=${mapId}&circle_radius=${circleRadius}&absent_colour=${encodeURIComponent(
+      absentColour,
+    )}&occupied_colour=${encodeURIComponent(occupiedColour)}`,
   );
 
 /**
