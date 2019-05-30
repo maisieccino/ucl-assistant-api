@@ -20,7 +20,7 @@ Install and start `redis-server`:
 
 Run the auto-reloading nodemon server:
 
-    yarn run start:dev
+    npm run start:dev
 
 
 # Secrets

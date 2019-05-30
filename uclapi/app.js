@@ -99,7 +99,13 @@ router.get("/workspaces/getliveimage/map.svg", jwt, async ctx => {
   ctx.assert(ctx.query.map_id);
   ctx.set({ "Content-Type": "image/svg+xml" });
   ctx.state.jsonify = false;
-  const res = await getLiveImage(ctx.query.survey_id, ctx.query.map_id);
+  const res = await getLiveImage({
+    surveyId: ctx.query.survey_id,
+    mapId: ctx.query.map_id,
+    circleRadius: ctx.query.circle_radius,
+    absentColour: ctx.query.absent_colour,
+    occupiedColour: ctx.query.occupied_colour,
+  });
   ctx.body = res.body;
 });
 
