@@ -112,17 +112,19 @@ const getAllSeatInfo = async () => {
     `${WORKSPACE_SUMMARY_URL}?token=${process.env.UCLAPI_TOKEN}`,
   );
   const { surveys } = data;
-  return surveys.map(survey => ({
-    ...reduceSeatInfo(survey.maps),
-    name: survey.name,
-    id: survey.id,
-    maps: survey.maps.map(map => ({
-      id: map.id,
-      name: map.name,
-      occupied: map.sensors_occupied,
-      total: map.sensors_absent + map.sensors_other + map.sensors_occupied,
-    })),
-  }));
+  return surveys
+    .map(survey => ({
+      ...reduceSeatInfo(survey.maps),
+      name: survey.name,
+      id: survey.id,
+      maps: survey.maps.map(map => ({
+        id: map.id,
+        name: map.name,
+        occupied: map.sensors_occupied,
+        total: map.sensors_absent + map.sensors_other + map.sensors_occupied,
+      })),
+    }))
+    .filter(workspace => !(workspace.occupied === 0 && workspace.total === 0));
 };
 
 module.exports = {
