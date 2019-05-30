@@ -12,14 +12,13 @@ ENV SECRET ""
 RUN apk add --no-cache tini
 ENTRYPOINT ["/sbin/tini", "--"]
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY package*.json ./
 
-RUN yarn install --pure-lockfile
+RUN npm ci --production
 
 COPY . .
 
 EXPOSE ${PORT}
 
 USER node
-CMD [ "/usr/local/bin/yarn", "start" ]
+CMD [ "npm", "start" ]
