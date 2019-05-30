@@ -1,5 +1,5 @@
-const { PEOPLE_SEARCH_URL } = require("./constants");
-const JSONRequest = require("../JSONRequest");
+const { PEOPLE_SEARCH_URL } = require("../constants/apiRoutes");
+const JSONRequest = require("../JSONRequest").JSONRequest;
 
 const peopleSearch = async query => {
   if (!query || query.length <= 3) {

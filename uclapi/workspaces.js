@@ -5,8 +5,8 @@ const {
   WORKSPACE_SUMMARY_URL,
   WORKSPACE_HISTORIC_URL,
   WORKSPACE_SURVEYS_URL,
-} = require("./constants");
-const JSONRequest = require("../JSONRequest");
+} = require("../constants/apiRoutes");
+const JSONRequest = require("../JSONRequest").JSONRequest;
 
 const DEFAULT_ABSENT_COLOUR = "#00FF00";
 const DEFAULT_OCCUPIED_COLOUR = "#880000";

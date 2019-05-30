@@ -1,0 +1,17 @@
+language: node_js
+services:
+  - redis-server
+node_js:
+  - lts/*
+dist: trusty
+cache: npm
+sudo: required
+install:
+  # install devDependencies so we can run tests
+  - npm ci --production=false
+jobs:
+  include:
+    - stage: testing
+      script:
+        - npm run start &
+        - npm run test

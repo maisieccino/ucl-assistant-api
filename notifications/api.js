@@ -1,4 +1,4 @@
-const JSONRequest = require("../JSONRequest");
+const JSONRequest = require("../JSONRequest").JSONRequest;
 
 const { NOTIFICATIONS_URL } = process.env;
 

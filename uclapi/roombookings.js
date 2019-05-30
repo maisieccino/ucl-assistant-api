@@ -2,8 +2,8 @@ const moment = require("moment");
 const {
   ROOMBOOKINGS_DATA_URL,
   ROOMBOOKINGS_FREEROOMS_URL,
-} = require("./constants");
-const JSONRequest = require("../JSONRequest");
+} = require("../constants/apiRoutes");
+const JSONRequest = require("../JSONRequest").JSONRequest;
 
 const { UCLAPI_TOKEN } = process.env;
 

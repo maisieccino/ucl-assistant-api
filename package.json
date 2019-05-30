@@ -1,22 +1,41 @@
 {
   "name": "ucl-assistant-api",
   "version": "0.4.7",
+  "private": true,
   "description": "Server to support the UCL Assistant app",
+  "repository": "https://github.com/uclapi/ucl-assistant",
+  "license": "MIT",
+  "author": "Matthew Bell",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "nodemon server",
-    "lint": "eslint . --ext .js --ext .jsx --cache --ignore-path .eslintignore",
-    "lint:force": "eslint . --ext .js --ext .jsx --ignore-path .eslintignore",
+    "format": "prettier --config .prettierrc.json --write all **/*.{js}",
+    "lint": "eslint . --ext .js --cache --ignore-path .eslintignore",
+    "lint:force": "eslint . --ext .js --ignore-path .eslintignore",
     "lint:staged": "lint-staged",
-    "format": "prettier --config .prettierrc.json --write all **/*.{js,jsx}",
-    "test": " jest run --ci && npm run lint:force"
+    "start": "node server.js",
+    "start:dev": "nodemon server --ignore __tests__",
+    "test": "jest --ci && npm run lint:force",
+    "test:dev": "jest --watch"
   },
-  "repository": "https://github.com/uclapi/ucl-assistant",
-  "author": "Matthew Bell",
-  "license": "MIT",
-  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "prettier --config .prettierrc.json --write all",
+      "git add"
+    ]
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "testURL": "http://localhost/"
+  },
   "dependencies": {
+    "axios": "^0.18.0",
     "dotenv": "^7.0.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
@@ -34,6 +53,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "5.16.0",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-import": "^0.13.0",
     "eslint-config-node": "^4.0.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-node": "^9.1.0",
@@ -41,23 +61,7 @@
     "jest": "^24.8.0",
     "lint-staged": "^8.1.7",
     "nodemon": "^1.19.1",
-    "prettier": "^1.17.1"
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "prettier --config .prettierrc.json --write all",
-      "git add"
-    ]
-  },
-  "jest": {
-    "testURL": "http://localhost/",
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint:staged"
-    }
+    "prettier": "^1.17.1",
+    "sinon": "^7.3.0"
   }
 }

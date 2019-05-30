@@ -1,5 +1,8 @@
-const { ROOMS_SEARCH_URL, ROOMS_EQUIPMENT_URL } = require("./constants");
-const JSONRequest = require("../JSONRequest");
+const {
+  ROOMS_SEARCH_URL,
+  ROOMS_EQUIPMENT_URL,
+} = require("../constants/apiRoutes");
+const JSONRequest = require("../JSONRequest").JSONRequest;
 
 const { UCLAPI_TOKEN } = process.env;
 
