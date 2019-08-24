@@ -1,4 +1,10 @@
-# Docker
+# UCL Assistant API
+
+[![Build Status](https://travis-ci.org/uclapi/ucl-assistant-api.svg?branch=master)](https://travis-ci.org/uclapi/ucl-assistant-api)
+
+An API serving [UCL Assistant](https://github.com/uclapi/ucl-assistant-app)
+
+## Docker
 
 A prebuilt image exists on
 [Dockerhub](https://hub.docker.com/r/mbellgb/ucl-assistant-server/), which you
@@ -11,7 +17,7 @@ To run it locally, you can also use docker-compose:
     docker-compose build
     docker-compose up
 
-# Non-Docker Development
+## Non-Docker Development
 
 Install and start `redis-server`:
 
@@ -23,7 +29,7 @@ Run the auto-reloading nodemon server:
     npm run start:dev
 
 
-# Secrets
+## Secrets
 
 Copy example file and add your UCL API client ID and secret keys. Also, set
 `SECRET` to a random value; this will be used for session keys. You can also add
@@ -40,7 +46,7 @@ UCLAPI_CLIENT_SECRET=???
 SECRET=???
 ```
 
-# Run on Kubernetes
+## Run on Kubernetes
 
 Build k8s secret from the env file created earlier.
 
@@ -57,8 +63,8 @@ $ kubectl create -f ../deployment/backend-service.yaml
 
 And then the service will start up as `ucl-assistant-backend`.
 
-# Running Tests
+## Running Tests
 
-Run `yarn run test:dev` to run Jest in interactive mode where it'll re-run all tests as you develop.
+Run `npm run test:dev` to run Jest in interactive mode where it'll re-run all tests as you develop.
 
-To run tests on an ad hoc bases, use `yarn run test`
+To run tests on an ad hoc bases, use `npm run test`
