@@ -8,9 +8,7 @@
   "author": "Matthew Bell",
   "main": "server.js",
   "scripts": {
-    "format": "prettier --config .prettierrc.json --write all **/*.{js}",
-    "lint": "eslint . --ext .js --cache --ignore-path .eslintignore",
-    "lint:force": "eslint . --ext .js --ignore-path .eslintignore",
+    "format": "eslint . --fix --ext .js --ignore-path .eslintignore",
     "lint:staged": "lint-staged",
     "start": "node server.js",
     "start:dev": "nodemon server --ignore __tests__",
@@ -24,7 +22,7 @@
   },
   "lint-staged": {
     "*.{js}": [
-      "prettier --config .prettierrc.json --write all",
+      "eslint --fix",
       "git add"
     ]
   },
@@ -36,11 +34,10 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "dotenv": "^8.0.0",
     "jsonwebtoken": "^8.5.1",
-    "koa": "^2.7.0",
+    "koa": "^2.8.1",
     "koa-bodyparser": "^4.2.0",
-    "koa-jwt": "^3.3.0",
+    "koa-jwt": "^3.6.0",
     "koa-mount": "^4.0.0",
     "koa-router": "^7.3.0",
     "koa-session": "^5.12.3",
@@ -50,18 +47,18 @@
     "redis": "^2.8.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-import": "^0.13.0",
-    "eslint-config-node": "^4.0.0",
-    "eslint-config-prettier": "^4.3.0",
+    "babel-eslint": "^10.0.2",
+    "dotenv": "^8.1.0",
+    "eslint": "^6.2.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-json": "^1.4.0",
+    "eslint-plugin-no-secrets": "^0.3.3",
     "eslint-plugin-node": "^9.1.0",
-    "husky": "^2.3.0",
-    "jest": "^24.8.0",
-    "lint-staged": "^8.1.7",
+    "eslint-plugin-security": "^1.4.0",
+    "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.3",
     "nodemon": "^1.19.1",
-    "prettier": "^1.17.1",
-    "sinon": "^7.3.0"
+    "sinon": "^7.4.1"
   }
 }

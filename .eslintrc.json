@@ -1,8 +1,8 @@
 {
   "extends": [
-    "prettier",
-    "prettier/flowtype",
-    "import"
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:security/recommended"
   ],
   "parser": "babel-eslint",
   "env": {
@@ -11,21 +11,45 @@
   "parserOptions": {
     "ecmaVersion": 8
   },
-  "plugins": ["import"],
+  "plugins": [
+    "import",
+    "security",
+    "no-secrets",
+    "json"
+  ],
   "rules": {
+    "semi": [
+      "error",
+      "never"
+    ],
     "global-require": "off",
-    "comma-dangle": ["error", "always-multiline"],
-    "no-console": "off"
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "quotes": [
+      "error",
+      "backtick"
+    ],
+    "no-console": "off",
+    "no-secrets/no-secrets": "error",
+    "security/detect-object-injection": "off",
+    "security/detect-non-literal-require": "off" // until https://github.com/nodesecurity/eslint-plugin-security/issues/27 is fixed
   },
   "overrides": [
     {
-      "files": ["**/__tests__/*.{js}", "*.test.js"],
+      "files": [
+        "**/__tests__/*.{js}",
+        "*.test.js"
+      ],
       "env": {
         "jest": true
       }
     },
     {
-      "files": ["**/*-stories.js"],
+      "files": [
+        "**/*-stories.js"
+      ],
       "rules": {
         "import/no-extraneous-dependencies": [
           "error",
@@ -41,7 +65,9 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js"]
+        "extensions": [
+          ".js"
+        ]
       }
     }
   }
