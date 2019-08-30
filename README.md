@@ -1,5 +1,6 @@
 # UCL Assistant API
 
+[![Powered by UCL API](https://img.shields.io/badge/Powered%20By-UCL%20API-11b57a%20)](https://uclapi.com)
 [![Build Status](https://travis-ci.org/uclapi/ucl-assistant-api.svg?branch=master)](https://travis-ci.org/uclapi/ucl-assistant-api)
 
 An API serving [UCL Assistant](https://github.com/uclapi/ucl-assistant-app)
