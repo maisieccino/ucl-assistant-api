@@ -20,7 +20,7 @@ describe(`people`, () => {
       }
     )
 
-    searchRequest(query)
+    peopleSearch(query)
 
     searchRequest.verify()
   })

@@ -63,6 +63,7 @@ const jsonify = async (ctx, next) => {
   if (ctx.state.jsonify) {
     // pretty-print if the pretty query variable is present
     ctx.body = ctx.query.pretty ? jsonFormatPretty(ctx) : jsonFormat(ctx)
+    ctx.set({ "Content-Type": `application/json` })
   }
 }
 

@@ -12,7 +12,7 @@
     "lint:staged": "lint-staged",
     "start": "node server.js",
     "start:dev": "nodemon server --ignore __tests__",
-    "test": "jest --ci",
+    "test": "TEST_MODE=true jest --ci",
     "test:dev": "jest --watch"
   },
   "husky": {
@@ -59,6 +59,7 @@
     "jest": "^24.9.0",
     "lint-staged": "^9.2.5",
     "nodemon": "^1.19.1",
-    "sinon": "^7.4.1"
+    "sinon": "^7.4.1",
+    "supertest": "^4.0.2"
   }
 }
