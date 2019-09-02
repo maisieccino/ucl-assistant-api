@@ -16,6 +16,7 @@ const router = require(`./router`)
 const { app: UCLAPI } = require(`./uclapi`)
 const { app: notifications } = require(`./notifications`)
 
+// eslint-disable-next-line security/detect-non-literal-fs-filename
 const { version } = JSON.parse(fs.readFileSync(`./package.json`))
 
 const sentryDsnUrl = process.env.SENTRY_DSN

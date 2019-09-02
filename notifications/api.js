@@ -1,48 +1,44 @@
-const JSONRequest = require("../JSONRequest").JSONRequest;
+const axios = require(`axios`)
 
-const { NOTIFICATIONS_URL } = process.env;
+const { NOTIFICATIONS_URL } = process.env
 
 const register = async (upi, pushToken) => {
-  console.log("registering...");
+  console.log(`registering...`)
   try {
-    await JSONRequest(`${NOTIFICATIONS_URL}/register`, {
-      method: "POST",
-      body: JSON.stringify({
-        upi,
-        pushToken,
-      }),
-    });
+    await axios.post(`${NOTIFICATIONS_URL}/register`, {
+      upi,
+      pushToken,
+    })
   } catch (error) {
     throw new Error(
       `API Registration for user ${upi} failed:\n${error.message}`,
-    );
+    )
   }
-  console.log("success!");
-};
+  console.log(`success!`)
+}
 
 const sendNotification = async (
   upi,
   notification = {
-    title: "UCL Assistant",
-    content: "",
-    type: "default",
-    path: "/",
+    title: `UCL Assistant`,
+    content: ``,
+    type: `default`,
+    path: `/`,
   },
 ) => {
   try {
-    await JSONRequest(`${NOTIFICATIONS_URL}/upi/${upi}/`, {
-      method: "POST",
-      body: JSON.stringify(notification),
-    });
+    await axios.post(`${NOTIFICATIONS_URL}/upi/${upi}/`, {
+      ...notification,
+    })
   } catch (error) {
     throw new Error(`Failed to send notification for user ${upi}:
     notification:
     ${JSON.stringify(notification)}
-    error: ${error.messsage}`);
+    error: ${error.messsage}`)
   }
-};
+}
 
 module.exports = {
   register,
   sendNotification,
-};
+}

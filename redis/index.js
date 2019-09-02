@@ -12,19 +12,19 @@
  * @returns The new or cached data.
  */
 const loadOrFetch = async (ctx, key, fetchNewData, ttl) => {
-  const cacheData = await ctx.redisGet(key);
+  const cacheData = await ctx.redisGet(key)
   if (cacheData) {
-    return JSON.parse(cacheData);
+    return JSON.parse(cacheData)
   }
-  const newData = await fetchNewData();
+  const newData = await fetchNewData()
   if (ttl) {
-    await ctx.redisSetex(key, ttl, JSON.stringify(newData));
+    await ctx.redisSetex(key, ttl, JSON.stringify(newData))
   } else {
-    await ctx.redisSet(key, JSON.stringify(newData));
+    await ctx.redisSet(key, JSON.stringify(newData))
   }
-  return newData;
-};
+  return newData
+}
 
 module.exports = {
   loadOrFetch,
-};
+}

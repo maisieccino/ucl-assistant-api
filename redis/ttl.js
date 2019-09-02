@@ -1,9 +1,9 @@
 /**
  * cache data TTL, in seconds.
  */
-const MINUTE = 60;
-const HOUR = MINUTE * 60;
-const DAY = HOUR * 24;
+const MINUTE = 60
+const HOUR = MINUTE * 60
+const DAY = HOUR * 24
 
 module.exports = {
   WORKSPACE_SURVEYS_TTL: DAY,
@@ -12,4 +12,4 @@ module.exports = {
   WORKSPACE_EQUIPMENT_TTL: DAY,
   PEOPLE_SEARCH_TTL: DAY,
   ROOMS_SEARCH_TTL: DAY,
-};
+}

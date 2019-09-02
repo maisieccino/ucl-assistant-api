@@ -1,7 +1,7 @@
-const API_URL = process.env.API_URL || "https://uclapi.com";
-const TIMETABLE_BASE_URL = `${API_URL}/timetable`;
-const WORKSPACES_BASE_URL = `${API_URL}/workspaces`;
-const ROOMBOOKINGS_BASE_URL = `${API_URL}/roombookings`;
+const API_URL = process.env.API_URL || `https://uclapi.com`
+const TIMETABLE_BASE_URL = `${API_URL}/timetable`
+const WORKSPACES_BASE_URL = `${API_URL}/workspaces`
+const ROOMBOOKINGS_BASE_URL = `${API_URL}/roombookings`
 
 module.exports = {
   API_URL,
@@ -19,4 +19,4 @@ module.exports = {
   WORKSPACE_HISTORIC_URL: `${WORKSPACES_BASE_URL}/sensors/averages/time`,
   ROOMBOOKINGS_DATA_URL: `${ROOMBOOKINGS_BASE_URL}/bookings`,
   ROOMBOOKINGS_FREEROOMS_URL: `${ROOMBOOKINGS_BASE_URL}/freerooms`,
-};
+}

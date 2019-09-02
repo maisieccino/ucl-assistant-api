@@ -1,37 +1,47 @@
-const moment = require("moment");
+const moment = require(`moment`)
 const {
   ROOMBOOKINGS_DATA_URL,
   ROOMBOOKINGS_FREEROOMS_URL,
-} = require("../constants/apiRoutes");
-const JSONRequest = require("../JSONRequest").JSONRequest;
+} = require(`../constants/apiRoutes`)
+const axios = require(`axios`)
 
-const { UCLAPI_TOKEN } = process.env;
+const { UCLAPI_TOKEN } = process.env
 
 const getRoomBookings = async ({ roomid, siteid, date }) => {
   if (!roomid) {
-    throw new Error("Must provide a roomid!");
+    throw new Error(`Must provide a roomid!`)
   }
   if (!siteid) {
-    throw new Error("Must provide a siteid");
+    throw new Error(`Must provide a siteid`)
   }
 
-  const url = `${ROOMBOOKINGS_DATA_URL}?token=${UCLAPI_TOKEN}&roomid=${roomid}&siteid=${siteid}&date=${date}`;
-
-  return JSONRequest(url);
-};
+  return axios.get(ROOMBOOKINGS_DATA_URL, {
+    params: {
+      token: UCLAPI_TOKEN,
+      roomid,
+      siteid,
+      date,
+    },
+  })
+}
 
 const getFreeRooms = async (
   startDateTime = new Date().toISOString(),
   endDateTime = moment()
-    .endOf("day")
+    .endOf(`day`)
     .toISOString(),
 ) => {
-  const url = `${ROOMBOOKINGS_FREEROOMS_URL}?token=${UCLAPI_TOKEN}&start_datetime=${startDateTime}&end_datetime=${endDateTime}`;
 
-  return JSONRequest(url);
-};
+  return axios.get(ROOMBOOKINGS_FREEROOMS_URL, {
+    params: {
+      token: UCLAPI_TOKEN,
+      start_datetime: startDateTime,
+      end_datetime: endDateTime,
+    },
+  })
+}
 
 module.exports = {
   getRoomBookings,
   getFreeRooms,
-};
+}
