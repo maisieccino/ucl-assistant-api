@@ -1,6 +1,4 @@
 language: node_js
-services:
-  - redis-server
 node_js:
   - lts/*
 dist: trusty
@@ -13,5 +11,4 @@ jobs:
   include:
     - stage: testing
       script:
-        - npm run start &
         - npm run test
