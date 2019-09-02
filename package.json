@@ -13,7 +13,7 @@
     "start": "node server.js",
     "start:dev": "nodemon server --ignore __tests__",
     "test": "TEST_MODE=true jest --ci",
-    "test:dev": "jest --watch"
+    "test:dev": "TEST_MODE=true jest --watch"
   },
   "husky": {
     "hooks": {
