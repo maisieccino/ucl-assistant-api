@@ -22,6 +22,6 @@ describe(`people`, () => {
 
     peopleSearch(query)
 
-    searchRequest.verify()
+    return searchRequest.verify()
   })
 })
