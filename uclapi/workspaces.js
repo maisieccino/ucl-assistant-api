@@ -1,31 +1,32 @@
-const fetch = require("node-fetch");
-const moment = require("moment");
+const fetch = require(`node-fetch`)
+const moment = require(`moment`)
 const {
   WORKSPACE_IMAGE_URL,
   WORKSPACE_SUMMARY_URL,
   WORKSPACE_HISTORIC_URL,
   WORKSPACE_SURVEYS_URL,
-} = require("../constants/apiRoutes");
-const JSONRequest = require("../JSONRequest").JSONRequest;
+} = require(`../constants/apiRoutes`)
+const axios = require(`axios`)
 
-const DEFAULT_ABSENT_COLOUR = "#00FF00";
-const DEFAULT_OCCUPIED_COLOUR = "#880000";
+const DEFAULT_ABSENT_COLOUR = `#00FF00`
+const DEFAULT_OCCUPIED_COLOUR = `#880000`
 
-const getWorkspaces = async (surveyFilter = "student") => {
-  const data = await JSONRequest(
-    `${WORKSPACE_SURVEYS_URL}?token=${
-      process.env.UCLAPI_TOKEN
-    }&survey_filter=${surveyFilter}`,
-  );
-  return data.surveys;
-};
+const getWorkspaces = async (surveyFilter = `student`) => {
+  const data = await axios.get(WORKSPACE_SURVEYS_URL, {
+    params: {
+      token: process.env.UCLAPI_TOKEN,
+      survey_filter: surveyFilter,
+    },
+  })
+  return data.surveys
+}
 
 const getImage = imageId =>
   fetch(
     `${WORKSPACE_IMAGE_URL}?token=${
-      process.env.UCLAPI_TOKEN
+    process.env.UCLAPI_TOKEN
     }&image_id=${imageId}&image_format=raw`,
-  );
+  )
 
 const getLiveImage = ({
   surveyId,
@@ -36,11 +37,11 @@ const getLiveImage = ({
 }) =>
   fetch(
     `${WORKSPACE_IMAGE_URL}/live?token=${
-      process.env.UCLAPI_TOKEN
+    process.env.UCLAPI_TOKEN
     }&survey_id=${surveyId}&map_id=${mapId}&circle_radius=${circleRadius}&absent_colour=${encodeURIComponent(
       absentColour,
     )}&occupied_colour=${encodeURIComponent(occupiedColour)}`,
-  );
+  )
 
 /**
  * Takes a list of maps, returns a an object with number of occupied seats
@@ -52,35 +53,39 @@ const reduceSeatInfo = maps =>
   maps.reduce(
     (obj, map) => {
       const mapCapacity =
-        map.sensors_absent + map.sensors_other + map.sensors_occupied;
+        map.sensors_absent + map.sensors_other + map.sensors_occupied
       return {
         occupied: obj.occupied + map.sensors_occupied,
         total: obj.total + mapCapacity,
-      };
+      }
     },
     { occupied: 0, total: 0 },
-  );
+  )
 
 const getSeatingInfo = async surveyId => {
-  const data = await JSONRequest(
-    `${WORKSPACE_SUMMARY_URL}?token=${
-      process.env.UCLAPI_TOKEN
-    }&survey_ids=${surveyId}`,
-  );
-  const { surveys } = data;
+  const data = await axios.get(
+    WORKSPACE_SUMMARY_URL,
+    {
+      params: {
+        token: process.env.UCLAPI_TOKEN,
+        survey_ids: surveyId,
+      },
+    }
+  )
+  const { surveys } = data
   if (surveys.length !== 1) {
-    throw new Error("Survey with that id not found.");
+    throw new Error(`Survey with that id not found.`)
   }
-  return reduceSeatInfo(surveys[0].maps);
-};
+  return reduceSeatInfo(surveys[0].maps)
+}
 
 const reduceAverageData = averages => {
-  const returnArray = Array.from(Array(24)).map(() => 0);
+  const returnArray = Array.from(Array(24)).map(() => 0)
   const hours = Object.keys(averages).map(time => ({
     time,
-    hour: moment(time, "HH:mm:ss").hours(),
+    hour: moment(time, `HH:mm:ss`).hours(),
     occupied: averages[time].sensors_occupied,
-  }));
+  }))
   return returnArray.map((_, i) => {
     const avrObj = hours.reduce(
       (acc, obj) =>
@@ -88,30 +93,40 @@ const reduceAverageData = averages => {
           ? { total: acc.total + obj.occupied, count: acc.count + 1 }
           : acc,
       { total: 0, count: 0 },
-    );
-    return avrObj.total / avrObj.count;
-  });
-};
+    )
+    return avrObj.total / avrObj.count
+  })
+}
 
 const getHistoricSeatInfo = async surveyId => {
-  const data = await JSONRequest(
-    `${WORKSPACE_HISTORIC_URL}?token=${
-      process.env.UCLAPI_TOKEN
-    }&survey_ids=${surveyId}&days=30`,
-  );
-  const { surveys } = data;
+  const data = await axios.get(
+    WORKSPACE_HISTORIC_URL,
+    {
+      params: {
+        token: process.env.UCLAPI_TOKEN,
+        survey_ids: surveyId,
+        days: 30,
+      },
+    }
+  )
+  const { surveys } = data
   if (surveys.length !== 1) {
-    throw new Error("Survey with that id not found");
+    throw new Error(`Survey with that id not found`)
   }
-  const { averages } = surveys[0];
-  return reduceAverageData(averages);
-};
+  const { averages } = surveys[0]
+  return reduceAverageData(averages)
+}
 
 const getAllSeatInfo = async () => {
-  const data = await JSONRequest(
-    `${WORKSPACE_SUMMARY_URL}?token=${process.env.UCLAPI_TOKEN}`,
-  );
-  const { surveys } = data;
+  const data = await axios.get(
+    WORKSPACE_SUMMARY_URL,
+    {
+      params: {
+        token: process.env.UCLAPI_TOKEN,
+      },
+    }
+  )
+  const { surveys } = data
   return surveys
     .map(survey => ({
       ...reduceSeatInfo(survey.maps),
@@ -124,8 +139,8 @@ const getAllSeatInfo = async () => {
         total: map.sensors_absent + map.sensors_other + map.sensors_occupied,
       })),
     }))
-    .filter(workspace => !(workspace.occupied === 0 && workspace.total === 0));
-};
+    .filter(workspace => !(workspace.occupied === 0 && workspace.total === 0))
+}
 
 module.exports = {
   reduceAverageData,
@@ -135,4 +150,4 @@ module.exports = {
   getSeatingInfo,
   getAllSeatInfo,
   getHistoricSeatInfo,
-};
+}

@@ -1,32 +1,39 @@
 const {
   ROOMS_SEARCH_URL,
   ROOMS_EQUIPMENT_URL,
-} = require("../constants/apiRoutes");
-const JSONRequest = require("../JSONRequest").JSONRequest;
+} = require(`../constants/apiRoutes`)
+const axios = require(`axios`)
 
-const { UCLAPI_TOKEN } = process.env;
+const { UCLAPI_TOKEN } = process.env
 
 const roomsSearch = async query => {
   if (!query || query.length <= 3) {
-    throw new Error("Must provide a query!");
+    throw new Error(`Must provide a query!`)
   }
 
-  const url = `${ROOMS_SEARCH_URL}?token=${UCLAPI_TOKEN}&roomname=${query}`;
-
-  return JSONRequest(url);
-};
+  return axios.get(ROOMS_SEARCH_URL, {
+    params: {
+      token: UCLAPI_TOKEN,
+      roomname: query,
+    },
+  })
+}
 
 const getEquipment = async (roomid, siteid) => {
   if (!roomid || !siteid) {
-    throw new Error("Must specify roomid and siteid");
+    throw new Error(`Must specify roomid and siteid`)
   }
 
-  const url = `${ROOMS_EQUIPMENT_URL}?token=${UCLAPI_TOKEN}&roomid=${roomid}&siteid=${siteid}`;
-
-  return JSONRequest(url);
-};
+  return axios.get(ROOMS_EQUIPMENT_URL, {
+    params: {
+      token: UCLAPI_TOKEN,
+      roomid,
+      siteid,
+    },
+  })
+}
 
 module.exports = {
   roomsSearch,
   getEquipment,
-};
+}

@@ -1,22 +1,22 @@
-const { USER_TOKEN_URL, USER_DATA_URL } = require("../constants/apiRoutes");
-const JSONRequest = require("../JSONRequest").JSONRequest;
+const { USER_TOKEN_URL, USER_DATA_URL } = require(`../constants/apiRoutes`)
+const axios = require(`axios`)
 
-const getToken = async code => {
-  const url = `${USER_TOKEN_URL}?client_id=${
-    process.env.UCLAPI_CLIENT_ID
-  }&client_secret=${process.env.UCLAPI_CLIENT_SECRET}&code=${code}`;
-  console.log(url);
-  return JSONRequest(url);
-};
+const getToken = code => axios.get(USER_TOKEN_URL, {
+  params: {
+    client_id: process.env.UCLAPI_CLIENT_ID,
+    client_secret: process.env.UCLAPI_CLIENT_SECRET,
+    code,
+  },
+})
 
-const getUserData = async token => {
-  const url = `${USER_DATA_URL}?client_secret=${
-    process.env.UCLAPI_CLIENT_SECRET
-  }&token=${token}`;
-  return JSONRequest(url);
-};
+const getUserData = token => axios.get(USER_DATA_URL, {
+  params: {
+    client_secret: process.env.UCLAPI_CLIENT_SECRET,
+    token,
+  },
+})
 
 module.exports = {
   getToken,
   getUserData,
-};
+}

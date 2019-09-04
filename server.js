@@ -16,6 +16,7 @@ const router = require(`./router`)
 const { app: UCLAPI } = require(`./uclapi`)
 const { app: notifications } = require(`./notifications`)
 
+// eslint-disable-next-line security/detect-non-literal-fs-filename
 const { version } = JSON.parse(fs.readFileSync(`./package.json`))
 
 const sentryDsnUrl = process.env.SENTRY_DSN
@@ -25,13 +26,6 @@ if (sentryDsnUrl === undefined) {
   Raven.config().install()
 } else {
   Raven.config(process.env.SENTRY_DSN).install()
-}
-
-const connectionString = process.env.REDIS_URL
-
-if (connectionString === undefined) {
-  console.error(`Please set the REDIS_URL environment variable`)
-  process.exit(1)
 }
 
 const app = new Koa()
@@ -66,23 +60,32 @@ if (!process.env.NOTIFICATIONS_URL) {
 
 app.keys = [process.env.SECRET || `secret`]
 
-if (connectionString.startsWith(`rediss://`)) {
-  app.context.redisClient = redis.createClient(connectionString, {
-    tls: { servername: new URL(connectionString).hostname },
-  })
-} else {
-  app.context.redisClient = redis.createClient(connectionString)
-}
+if (process.env.TEST_MODE !== `true`) {
+  const connectionString = process.env.REDIS_URL
 
-app.context.redisGet = promisify(app.context.redisClient.get).bind(
-  app.context.redisClient,
-)
-app.context.redisSetex = promisify(app.context.redisClient.setex).bind(
-  app.context.redisClient,
-)
-app.context.redisSet = promisify(app.context.redisClient.set).bind(
-  app.context.redisClient,
-)
+  if (connectionString === undefined) {
+    console.error(`Please set the REDIS_URL environment variable`)
+    process.exit(1)
+  }
+
+  if (connectionString.startsWith(`rediss://`)) {
+    app.context.redisClient = redis.createClient(connectionString, {
+      tls: { servername: new URL(connectionString).hostname },
+    })
+  } else {
+    app.context.redisClient = redis.createClient(connectionString)
+  }
+
+  app.context.redisGet = promisify(app.context.redisClient.get).bind(
+    app.context.redisClient,
+  )
+  app.context.redisSetex = promisify(app.context.redisClient.setex).bind(
+    app.context.redisClient,
+  )
+  app.context.redisSet = promisify(app.context.redisClient.set).bind(
+    app.context.redisClient,
+  )
+}
 
 app.use(session({}, app))
 
@@ -95,6 +98,10 @@ app.use(mount(`/notifications`, notifications))
 app.use(mount(UCLAPI))
 app.use(mount(router))
 
-Raven.context(() => {
-  app.listen(process.env.PORT || 3000)
-})
+if (!module.parent) {
+  Raven.context(() => {
+    app.listen(process.env.PORT || 3000)
+  })
+}
+
+module.exports = app

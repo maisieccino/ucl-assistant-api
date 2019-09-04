@@ -1,6 +1,6 @@
 {
   "name": "ucl-assistant-api",
-  "version": "0.4.7",
+  "version": "0.5.0",
   "private": true,
   "description": "Server to support the UCL Assistant app",
   "repository": "https://github.com/uclapi/ucl-assistant",
@@ -12,8 +12,8 @@
     "lint:staged": "lint-staged",
     "start": "node server.js",
     "start:dev": "nodemon server --ignore __tests__",
-    "test": "jest --ci",
-    "test:dev": "jest --watch"
+    "test": "TEST_MODE=true jest --ci",
+    "test:dev": "TEST_MODE=true jest --watch"
   },
   "husky": {
     "hooks": {
@@ -59,6 +59,7 @@
     "jest": "^24.9.0",
     "lint-staged": "^9.2.5",
     "nodemon": "^1.19.1",
-    "sinon": "^7.4.2"
+    "sinon": "^7.4.2",
+    "supertest": "^4.0.2"
   }
 }

@@ -1,28 +1,30 @@
-const moment = require("moment");
+const moment = require(`moment`)
 const {
   MODULE_TIMETABLE_URL,
   PERSONAL_TIMETABLE_URL,
-} = require("../constants/apiRoutes");
-const JSONRequest = require("../JSONRequest").JSONRequest;
+} = require(`../constants/apiRoutes`)
+const axios = require(`axios`)
 
 const getPersonalTimetable = async (token, date = null) => {
-  const datePart = date
-    ? `&date_filter=${moment(date).format("YYYY-MM-DD")}`
-    : "";
-  const url = `${PERSONAL_TIMETABLE_URL}?client_secret=${
-    process.env.UCLAPI_CLIENT_SECRET
-  }&token=${token}${datePart}`;
-  return JSONRequest(url);
-};
+  let params = {
+    client_secret: process.env.UCLAPI_CLIENT_SECRET,
+    token,
+  }
+  if (date) {
+    params[`date_filter`] = moment(date).format(`YYYY-MM-DD`)
+  }
+  return axios.get(PERSONAL_TIMETABLE_URL, { params })
+}
 
-const getModuleTimetable = async (token, module) => {
-  const url = `${MODULE_TIMETABLE_URL}?client_secret=${
-    process.env.UCLAPI_CLIENT_SECRET
-  }&token=${token}&modules=${module}`;
-  return JSONRequest(url);
-};
+const getModuleTimetable = (token, module) => axios.get(MODULE_TIMETABLE_URL, {
+  params: {
+    client_secret: process.env.UCLAPI_CLIENT_SECRET,
+    token,
+    modules: module,
+  },
+})
 
 module.exports = {
   getModuleTimetable,
   getPersonalTimetable,
-};
+}

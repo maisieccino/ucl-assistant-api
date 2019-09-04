@@ -1,16 +1,17 @@
-const { PEOPLE_SEARCH_URL } = require("../constants/apiRoutes");
-const JSONRequest = require("../JSONRequest").JSONRequest;
+const { PEOPLE_SEARCH_URL } = require(`../constants/apiRoutes`)
+const axios = require(`axios`)
 
 const peopleSearch = async query => {
   if (!query || query.length <= 3) {
-    throw new Error("Must provide a query!");
+    throw new Error(`Must provide a query!`)
   }
 
-  const url = `${PEOPLE_SEARCH_URL}?token=${
-    process.env.UCLAPI_TOKEN
-  }&query=${query}`;
+  return axios.get(PEOPLE_SEARCH_URL, {
+    params: {
+      token: process.env.UCLAPI_TOKEN,
+      query,
+    },
+  })
+}
 
-  return JSONRequest(url);
-};
-
-module.exports = { peopleSearch };
+module.exports = { peopleSearch }
