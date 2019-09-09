@@ -13,16 +13,16 @@ const getPersonalTimetable = async (token, date = null) => {
   if (date) {
     params[`date_filter`] = moment(date).format(`YYYY-MM-DD`)
   }
-  return axios.get(PERSONAL_TIMETABLE_URL, { params })
+  return (await axios.get(PERSONAL_TIMETABLE_URL, { params })).data
 }
 
-const getModuleTimetable = (token, module) => axios.get(MODULE_TIMETABLE_URL, {
+const getModuleTimetable = async (token, module) => (await axios.get(MODULE_TIMETABLE_URL, {
   params: {
     client_secret: process.env.UCLAPI_CLIENT_SECRET,
     token,
     modules: module,
   },
-})
+})).data
 
 module.exports = {
   getModuleTimetable,

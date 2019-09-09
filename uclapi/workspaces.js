@@ -12,12 +12,12 @@ const DEFAULT_ABSENT_COLOUR = `#00FF00`
 const DEFAULT_OCCUPIED_COLOUR = `#880000`
 
 const getWorkspaces = async (surveyFilter = `student`) => {
-  const data = await axios.get(WORKSPACE_SURVEYS_URL, {
+  const data = (await axios.get(WORKSPACE_SURVEYS_URL, {
     params: {
       token: process.env.UCLAPI_TOKEN,
       survey_filter: surveyFilter,
     },
-  })
+  })).data
   return data.surveys
 }
 
@@ -63,7 +63,7 @@ const reduceSeatInfo = maps =>
   )
 
 const getSeatingInfo = async surveyId => {
-  const data = await axios.get(
+  const data = (await axios.get(
     WORKSPACE_SUMMARY_URL,
     {
       params: {
@@ -71,7 +71,7 @@ const getSeatingInfo = async surveyId => {
         survey_ids: surveyId,
       },
     }
-  )
+  )).data
   const { surveys } = data
   if (surveys.length !== 1) {
     throw new Error(`Survey with that id not found.`)
@@ -99,7 +99,7 @@ const reduceAverageData = averages => {
 }
 
 const getHistoricSeatInfo = async surveyId => {
-  const data = await axios.get(
+  const data = (await axios.get(
     WORKSPACE_HISTORIC_URL,
     {
       params: {
@@ -108,7 +108,7 @@ const getHistoricSeatInfo = async surveyId => {
         days: 30,
       },
     }
-  )
+  )).data
   const { surveys } = data
   if (surveys.length !== 1) {
     throw new Error(`Survey with that id not found`)
@@ -118,14 +118,14 @@ const getHistoricSeatInfo = async surveyId => {
 }
 
 const getAllSeatInfo = async () => {
-  const data = await axios.get(
+  const data = (await axios.get(
     WORKSPACE_SUMMARY_URL,
     {
       params: {
         token: process.env.UCLAPI_TOKEN,
       },
     }
-  )
+  )).data
   const { surveys } = data
   return surveys
     .map(survey => ({

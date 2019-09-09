@@ -15,14 +15,14 @@ const getRoomBookings = async ({ roomid, siteid, date }) => {
     throw new Error(`Must provide a siteid`)
   }
 
-  return axios.get(ROOMBOOKINGS_DATA_URL, {
+  return (await axios.get(ROOMBOOKINGS_DATA_URL, {
     params: {
       token: UCLAPI_TOKEN,
       roomid,
       siteid,
       date,
     },
-  })
+  })).data
 }
 
 const getFreeRooms = async (
@@ -32,13 +32,13 @@ const getFreeRooms = async (
     .toISOString(),
 ) => {
 
-  return axios.get(ROOMBOOKINGS_FREEROOMS_URL, {
+  return (await axios.get(ROOMBOOKINGS_FREEROOMS_URL, {
     params: {
       token: UCLAPI_TOKEN,
       start_datetime: startDateTime,
       end_datetime: endDateTime,
     },
-  })
+  })).data
 }
 
 module.exports = {

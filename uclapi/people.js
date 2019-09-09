@@ -6,12 +6,12 @@ const peopleSearch = async query => {
     throw new Error(`Must provide a query!`)
   }
 
-  return axios.get(PEOPLE_SEARCH_URL, {
+  return (await axios.get(PEOPLE_SEARCH_URL, {
     params: {
       token: process.env.UCLAPI_TOKEN,
       query,
     },
-  })
+  })).data
 }
 
 module.exports = { peopleSearch }

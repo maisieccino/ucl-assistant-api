@@ -11,12 +11,12 @@ const roomsSearch = async query => {
     throw new Error(`Must provide a query!`)
   }
 
-  return axios.get(ROOMS_SEARCH_URL, {
+  return (await axios.get(ROOMS_SEARCH_URL, {
     params: {
       token: UCLAPI_TOKEN,
       roomname: query,
     },
-  })
+  })).data
 }
 
 const getEquipment = async (roomid, siteid) => {
@@ -24,13 +24,13 @@ const getEquipment = async (roomid, siteid) => {
     throw new Error(`Must specify roomid and siteid`)
   }
 
-  return axios.get(ROOMS_EQUIPMENT_URL, {
+  return (await axios.get(ROOMS_EQUIPMENT_URL, {
     params: {
       token: UCLAPI_TOKEN,
       roomid,
       siteid,
     },
-  })
+  })).data
 }
 
 module.exports = {
