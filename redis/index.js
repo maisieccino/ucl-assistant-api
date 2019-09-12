@@ -13,7 +13,7 @@
  */
 const loadOrFetch = async (ctx, key, fetchNewData, ttl) => {
   const cacheData = await ctx.redisGet(key)
-  if (cacheData) {
+  if (cacheData && process.env.NODE_ENV !== `development`) {
     return JSON.parse(cacheData)
   }
   const newData = await fetchNewData()
