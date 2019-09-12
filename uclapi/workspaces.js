@@ -11,14 +11,19 @@ const axios = require(`axios`)
 const DEFAULT_ABSENT_COLOUR = `#00FF00`
 const DEFAULT_OCCUPIED_COLOUR = `#880000`
 
+const cleanWorkspaces = workspaces => workspaces.map(({ name, ...attributes }) => ({
+  ...attributes,
+  name: name.replace(/"/g, ``),
+})).filter(({ name }) => (name.indexOf(`Dev Testing`) === -1))
+
 const getWorkspaces = async (surveyFilter = `student`) => {
-  const data = (await axios.get(WORKSPACE_SURVEYS_URL, {
+  const { data: { surveys } } = (await axios.get(WORKSPACE_SURVEYS_URL, {
     params: {
       token: process.env.UCLAPI_TOKEN,
       survey_filter: surveyFilter,
     },
-  })).data
-  return data.surveys
+  }))
+  return cleanWorkspaces(surveys)
 }
 
 const getImage = imageId =>
@@ -127,19 +132,21 @@ const getAllSeatInfo = async () => {
     }
   )).data
   const { surveys } = data
-  return surveys
-    .map(survey => ({
-      ...reduceSeatInfo(survey.maps),
-      name: survey.name,
-      id: survey.id,
-      maps: survey.maps.map(map => ({
-        id: map.id,
-        name: map.name,
-        occupied: map.sensors_occupied,
-        total: map.sensors_absent + map.sensors_other + map.sensors_occupied,
-      })),
-    }))
-    .filter(workspace => !(workspace.occupied === 0 && workspace.total === 0))
+  return cleanWorkspaces(
+    surveys
+      .map(survey => ({
+        ...reduceSeatInfo(survey.maps),
+        name: survey.name,
+        id: survey.id,
+        maps: survey.maps.map(map => ({
+          id: map.id,
+          name: map.name,
+          occupied: map.sensors_occupied,
+          total: map.sensors_absent + map.sensors_other + map.sensors_occupied,
+        })),
+      }))
+      .filter(workspace => !(workspace.occupied === 0 && workspace.total === 0))
+  )
 }
 
 module.exports = {
