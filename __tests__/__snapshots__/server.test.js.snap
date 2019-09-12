@@ -1,0 +1,291 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test server returns list of workspaces at /workspaces 1`] = `
+Array [
+  Object {
+    "id": 58,
+    "name": "UCL Student Centre",
+  },
+  Object {
+    "id": 39,
+    "name": "UCL SSEES Library",
+  },
+  Object {
+    "id": 33,
+    "name": "UCL SENIT Suite",
+  },
+  Object {
+    "id": 35,
+    "name": "UCL Senate House Hub",
+  },
+  Object {
+    "id": 19,
+    "name": "UCL Science Library",
+  },
+  Object {
+    "id": 27,
+    "name": "UCL School of Pharmacy Library",
+  },
+  Object {
+    "id": 38,
+    "name": "UCL Main Library",
+  },
+  Object {
+    "id": 14,
+    "name": "UCL Language & Speech Science Library",
+  },
+  Object {
+    "id": 47,
+    "name": "UCL Institute of Orthopaedics Library",
+  },
+  Object {
+    "id": 46,
+    "name": "UCL Institute of Education Library",
+  },
+  Object {
+    "id": 7,
+    "name": "UCL Institute of Archaeology Library",
+  },
+  Object {
+    "id": 12,
+    "name": "UCL Great Ormond Street Institute of Child Health Library",
+  },
+  Object {
+    "id": 80,
+    "name": "UCL GOSICH - Wolfson Centre G19",
+  },
+  Object {
+    "id": 79,
+    "name": "UCL GOSICH - Wolfson Centre F17",
+  },
+  Object {
+    "id": 9,
+    "name": "UCL Eastman Dental Library",
+  },
+  Object {
+    "id": 16,
+    "name": "UCL Ear Institute & Hearing Loss Library",
+  },
+  Object {
+    "id": 45,
+    "name": "UCL Cruciform Hub",
+  },
+  Object {
+    "id": 8,
+    "name": "UCL Bartlett Library",
+  },
+  Object {
+    "id": 6,
+    "name": "UCL Anatomy Hub ",
+  },
+  Object {
+    "id": 61,
+    "name": "Torrington Place (1-19) 113",
+  },
+  Object {
+    "id": 40,
+    "name": "The Joint Library of Ophthalmology",
+  },
+  Object {
+    "id": 32,
+    "name": "Royal Free Hospital Medical Library",
+  },
+  Object {
+    "id": 81,
+    "name": "Roberts Building 410",
+  },
+  Object {
+    "id": 73,
+    "name": "Pearson Building B01",
+  },
+  Object {
+    "id": 11,
+    "name": "Graduate Hub",
+  },
+  Object {
+    "id": 64,
+    "name": "Gordon SQ 31-34 & 14 Taviton Street 501",
+  },
+  Object {
+    "id": 63,
+    "name": "Gordon SQ 31-34 & 14 Taviton Street  117",
+  },
+  Object {
+    "id": 76,
+    "name": "Gordon House G10",
+  },
+  Object {
+    "id": 77,
+    "name": "Foster Court 216",
+  },
+  Object {
+    "id": 10,
+    "name": "Foster Court",
+  },
+  Object {
+    "id": 68,
+    "name": "Christopher Ingold Building G20",
+  },
+  Object {
+    "id": 71,
+    "name": "Chandler House G11",
+  },
+  Object {
+    "id": 70,
+    "name": "Chandler House G01",
+  },
+  Object {
+    "id": 69,
+    "name": "Chadwick Building B04",
+  },
+  Object {
+    "id": 67,
+    "name": "Chadwick Building 223",
+  },
+  Object {
+    "id": 74,
+    "name": "Central House LG17",
+  },
+  Object {
+    "id": 75,
+    "name": "Central House LG05",
+  },
+  Object {
+    "id": 82,
+    "name": "Bentham House G25",
+  },
+  Object {
+    "id": 66,
+    "name": "Bedford Way, 26 G11",
+  },
+  Object {
+    "id": 65,
+    "name": "Bedford Way, 26 316",
+  },
+  Object {
+    "id": 62,
+    "name": "23 Gordon Square 203",
+  },
+  Object {
+    "id": 28,
+    "name": "UCL Institute of Neurology",
+  },
+  Object {
+    "id": 78,
+    "name": "Tavistock Square",
+  },
+  Object {
+    "id": 72,
+    "name": "Bedford Way",
+  },
+]
+`;
+
+exports[`test server returns list of workspaces with summarised occupancy data at /workspaces/summary 1`] = `
+Array [
+  Object {
+    "id": 58,
+    "name": "UCL Student Centre",
+  },
+  Object {
+    "id": 39,
+    "name": "UCL SSEES Library",
+  },
+  Object {
+    "id": 33,
+    "name": "UCL SENIT Suite",
+  },
+  Object {
+    "id": 35,
+    "name": "UCL Senate House Hub",
+  },
+  Object {
+    "id": 19,
+    "name": "UCL Science Library",
+  },
+  Object {
+    "id": 27,
+    "name": "UCL School of Pharmacy Library",
+  },
+  Object {
+    "id": 38,
+    "name": "UCL Main Library",
+  },
+  Object {
+    "id": 14,
+    "name": "UCL Language & Speech Science Library",
+  },
+  Object {
+    "id": 47,
+    "name": "UCL Institute of Orthopaedics Library",
+  },
+  Object {
+    "id": 46,
+    "name": "UCL Institute of Education Library",
+  },
+  Object {
+    "id": 7,
+    "name": "UCL Institute of Archaeology Library",
+  },
+  Object {
+    "id": 12,
+    "name": "UCL Great Ormond Street Institute of Child Health Library",
+  },
+  Object {
+    "id": 9,
+    "name": "UCL Eastman Dental Library",
+  },
+  Object {
+    "id": 16,
+    "name": "UCL Ear Institute & Hearing Loss Library",
+  },
+  Object {
+    "id": 45,
+    "name": "UCL Cruciform Hub",
+  },
+  Object {
+    "id": 8,
+    "name": "UCL Bartlett Library",
+  },
+  Object {
+    "id": 6,
+    "name": "UCL Anatomy Hub ",
+  },
+  Object {
+    "id": 61,
+    "name": "Torrington Place (1-19) 113",
+  },
+  Object {
+    "id": 40,
+    "name": "The Joint Library of Ophthalmology",
+  },
+  Object {
+    "id": 32,
+    "name": "Royal Free Hospital Medical Library",
+  },
+  Object {
+    "id": 11,
+    "name": "Graduate Hub",
+  },
+  Object {
+    "id": 64,
+    "name": "Gordon SQ 31-34 & 14 Taviton Street 501",
+  },
+  Object {
+    "id": 63,
+    "name": "Gordon SQ 31-34 & 14 Taviton Street  117",
+  },
+  Object {
+    "id": 10,
+    "name": "Foster Court",
+  },
+  Object {
+    "id": 62,
+    "name": "23 Gordon Square 203",
+  },
+  Object {
+    "id": 28,
+    "name": "UCL Institute of Neurology",
+  },
+]
+`;
