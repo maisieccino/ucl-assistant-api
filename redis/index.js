@@ -12,15 +12,21 @@
  * @returns The new or cached data.
  */
 const loadOrFetch = async (ctx, key, fetchNewData, ttl) => {
-  const cacheData = await ctx.redisGet(key)
-  if (cacheData && process.env.NODE_ENV !== `development`) {
-    return JSON.parse(cacheData)
+
+  const skipCache = process.env.TEST_MODE === `true` || process.env.NODE_ENV === `development`
+  if (!skipCache) {
+    const cacheData = await ctx.redisGet(key)
+    if (cacheData) {
+      return JSON.parse(cacheData)
+    }
   }
   const newData = await fetchNewData()
-  if (ttl) {
-    await ctx.redisSetex(key, ttl, JSON.stringify(newData))
-  } else {
-    await ctx.redisSet(key, JSON.stringify(newData))
+  if (!skipCache) {
+    if (ttl) {
+      await ctx.redisSetex(key, ttl, JSON.stringify(newData))
+    } else {
+      await ctx.redisSet(key, JSON.stringify(newData))
+    }
   }
   return newData
 }

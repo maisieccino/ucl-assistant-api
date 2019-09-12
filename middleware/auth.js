@@ -18,8 +18,13 @@ const jwtVerifyDev = (ctx, next) => next()
 
 const genToken = user => jwt.sign(user, process.env.SECRET)
 
+const shouldBypassAuthentication = (
+  process.env.NODE_ENV === `development` ||
+  process.env.TEST_MODE === `true`
+)
+
 module.exports = {
   authenticate,
-  jwt: process.env.NODE_ENV === `development` ? jwtVerifyDev : jwtVerify,
+  jwt: shouldBypassAuthentication ? jwtVerifyDev : jwtVerify,
   genToken,
 }
