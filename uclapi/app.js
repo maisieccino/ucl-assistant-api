@@ -159,7 +159,11 @@ router.get(`/roombookings`, jwt, async ctx => {
 })
 
 router.get(`/freerooms`, jwt, async ctx => {
-  ctx.body = await getFreeRooms()
+  const {
+    start_datetime: startDateTime,
+    end_datetime: endDateTime,
+  } = ctx.query
+  ctx.body = await getFreeRooms(startDateTime, endDateTime)
 })
 
 app.use(router.routes())
