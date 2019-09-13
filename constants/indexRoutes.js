@@ -59,7 +59,13 @@ const indexRoutes = {
         date: `Date expressed in ISO8601, i.e. YYYYMMDD`,
       },
     },
-    "/freerooms": `Returns all rooms free between now and the end of the day`,
+    "/freerooms": {
+      description: `Returns all rooms free between now and the end of the day`,
+      parameters: {
+        start_datetime: `Start datetime in ISO8601 format, e.g. 2011-03-06T03:36:45+00:00`,
+        end_datetime: `End datetime in ISO8601 format, e.g. 2011-03-06T03:36:45+00:00`,
+      },
+    },
     "/ping": `returns a 200 OK message. good for testing liveness`,
     "/echo": `returns the HTTP message body as the content`,
   },
