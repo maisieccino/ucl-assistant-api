@@ -11,7 +11,7 @@ const { jsonify, logger, timer } = require(`./middleware`)
 const URL = require(`url`)
 const redis = require(`redis`)
 const { promisify } = require(`util`)
-const Raven = require(`raven`)
+const Sentry = require(`@sentry/node`)
 const router = require(`./router`)
 const { app: UCLAPI } = require(`./uclapi`)
 const { app: notifications } = require(`./notifications`)
@@ -23,9 +23,8 @@ const sentryDsnUrl = process.env.SENTRY_DSN
 
 if (sentryDsnUrl === undefined) {
   console.error(`Sentry DSN not provided!`)
-  Raven.config().install()
 } else {
-  Raven.config(process.env.SENTRY_DSN).install()
+  Sentry.init({ dsn: process.env.SENTRY_DSN })
 }
 
 const app = new Koa()
@@ -99,9 +98,7 @@ app.use(mount(UCLAPI))
 app.use(mount(router))
 
 if (!module.parent) {
-  Raven.context(() => {
-    app.listen(process.env.PORT || 3000)
-  })
+  app.listen(process.env.PORT || 3000)
 }
 
 module.exports = app

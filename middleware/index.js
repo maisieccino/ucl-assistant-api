@@ -1,3 +1,4 @@
+const Sentry = require(`@sentry/node`)
 const auth = require(`./auth`)
 
 /**
@@ -48,6 +49,7 @@ const jsonify = async (ctx, next) => {
   try {
     await next()
   } catch (error) {
+    Sentry.captureException(error)
     if (typeof error.message === `string`) {
       console.error(`Error: ${error.message}\n${error.stack}`)
       ctx.error = error.message
