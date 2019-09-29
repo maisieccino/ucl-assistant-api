@@ -20,7 +20,7 @@ const timer = async (ctx, next) => {
  */
 const logger = async (ctx, next) => {
   await next()
-  console.log(`${ctx.method} ${ctx.url} => ${ctx.status} "${ctx.message}"`)
+  console.log(`${ctx.method} ${ctx.url} => ${ctx.status} "${ctx.message}"`, `${ctx.headers}`)
 }
 
 const jsonFormatPretty = ctx =>
