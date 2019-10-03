@@ -14,7 +14,10 @@ const DEFAULT_OCCUPIED_COLOUR = `#880000`
 const cleanWorkspaces = workspaces => workspaces.map(({ name, ...attributes }) => ({
   ...attributes,
   name: name.replace(/"/g, ``),
-})).filter(({ name }) => (name.indexOf(`Dev Testing`) === -1))
+})).filter(({ name }) => {
+  const lowercaseName = name.toLowerCase()
+  return name.indexOf(`dev testing`) === -1 || name.indexOf(`new layout`) === -1
+})
 
 const getWorkspaces = async (surveyFilter = `student`) => {
   const { data: { surveys } } = (await axios.get(WORKSPACE_SURVEYS_URL, {

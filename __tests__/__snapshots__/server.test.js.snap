@@ -15,6 +15,10 @@ Array [
     "name": "UCL SENIT Suite",
   },
   Object {
+    "id": 85,
+    "name": "UCL Senate House Hub- New layout",
+  },
+  Object {
     "id": 35,
     "name": "UCL Senate House Hub",
   },
@@ -97,6 +101,10 @@ Array [
   Object {
     "id": 73,
     "name": "Pearson Building B01",
+  },
+  Object {
+    "id": 84,
+    "name": "Graduate Hub - new layout",
   },
   Object {
     "id": 11,
