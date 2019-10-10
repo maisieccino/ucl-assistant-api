@@ -22,10 +22,10 @@ router.post(`/register`, jwt, async ctx => {
       `attempting to register notifications for ${ctx.state.user.upi}`,
     )
     await api.register(ctx.state.user.upi, token)
-    await api.sendNotification(ctx.state.user.upi, {
-      title: `Test Notification`,
-      content: `Congratulations! Notifications are successfully working.`,
-    })
+    // await api.sendNotification(ctx.state.user.upi, {
+    //   title: `Test Notification`,
+    //   content: `Congratulations! Notifications are successfully working.`,
+    // })
   } catch (err) {
     ctx.throw(400, err.message)
   }
