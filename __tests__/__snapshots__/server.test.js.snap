@@ -39,6 +39,10 @@ Array [
     "name": "UCL Institute of Orthopaedics Library",
   },
   Object {
+    "id": 28,
+    "name": "UCL Institute of Neurology",
+  },
+  Object {
     "id": 46,
     "name": "UCL Institute of Education Library",
   },
@@ -167,16 +171,12 @@ Array [
     "name": "23 Gordon Square 203",
   },
   Object {
-    "id": 28,
-    "name": "UCL Institute of Neurology",
-  },
-  Object {
     "id": 78,
     "name": "Tavistock Square",
   },
   Object {
     "id": 72,
-    "name": "Bedford Way",
+    "name": " Bedford Way LG16",
   },
 ]
 `;
@@ -220,6 +220,10 @@ Array [
     "name": "UCL Institute of Orthopaedics Library",
   },
   Object {
+    "id": 28,
+    "name": "UCL Institute of Neurology",
+  },
+  Object {
     "id": 46,
     "name": "UCL Institute of Education Library",
   },
@@ -234,6 +238,14 @@ Array [
   Object {
     "id": 84,
     "name": "UCL Graduate Hub",
+  },
+  Object {
+    "id": 80,
+    "name": "UCL GOSICH - Wolfson Centre G19",
+  },
+  Object {
+    "id": 79,
+    "name": "UCL GOSICH - Wolfson Centre F17",
   },
   Object {
     "id": 9,
@@ -296,12 +308,24 @@ Array [
     "name": "Foster Court",
   },
   Object {
+    "id": 68,
+    "name": "Christopher Ingold Building G20",
+  },
+  Object {
     "id": 71,
     "name": "Chandler House G11",
   },
   Object {
     "id": 70,
     "name": "Chandler House G01",
+  },
+  Object {
+    "id": 69,
+    "name": "Chadwick Building B04",
+  },
+  Object {
+    "id": 67,
+    "name": "Chadwick Building 223",
   },
   Object {
     "id": 74,
@@ -312,16 +336,28 @@ Array [
     "name": "Central House LG05",
   },
   Object {
+    "id": 82,
+    "name": "Bentham House G25",
+  },
+  Object {
+    "id": 66,
+    "name": "Bedford Way, 26 G11",
+  },
+  Object {
+    "id": 65,
+    "name": "Bedford Way, 26 316",
+  },
+  Object {
     "id": 62,
     "name": "23 Gordon Square 203",
   },
   Object {
-    "id": 28,
-    "name": "UCL Institute of Neurology",
+    "id": 78,
+    "name": "Tavistock Square",
   },
   Object {
     "id": 72,
-    "name": "Bedford Way",
+    "name": " Bedford Way LG16",
   },
 ]
 `;
