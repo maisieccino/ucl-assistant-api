@@ -11,13 +11,17 @@ const axios = require(`axios`)
 const DEFAULT_ABSENT_COLOUR = `#00FF00`
 const DEFAULT_OCCUPIED_COLOUR = `#880000`
 
-const cleanWorkspaces = workspaces => workspaces.map(({ name, ...attributes }) => ({
-  ...attributes,
-  name: name.replace(/"/g, ``),
-})).filter(({ name }) => {
-  const lowercaseName = name.toLowerCase()
-  return name.indexOf(`dev testing`) === -1 || name.indexOf(`new layout`) === -1
-})
+const cleanWorkspaces = workspaces => workspaces.map(
+  ({ name, ...attributes }) => ({
+    ...attributes,
+    name: name.replace(/"/g, ``),
+  })).filter(({ name }) => {
+    const lowercaseName = name.toLowerCase()
+    return (
+      name.indexOf(`dev testing`) === -1
+      || name.indexOf(`new layout`) === -1
+    )
+  })
 
 const getWorkspaces = async (surveyFilter = `student`) => {
   const { data: { surveys } } = (await axios.get(WORKSPACE_SURVEYS_URL, {
@@ -46,9 +50,17 @@ const getLiveImage = ({
   fetch(
     `${WORKSPACE_IMAGE_URL}/live?token=${
     process.env.UCLAPI_TOKEN
-    }&survey_id=${surveyId}&map_id=${mapId}&circle_radius=${circleRadius}&absent_colour=${encodeURIComponent(
-      absentColour,
-    )}&occupied_colour=${encodeURIComponent(occupiedColour)}`,
+    }&survey_id=${
+    surveyId
+    }&map_id=${
+    mapId
+    }&circle_radius=${
+    circleRadius
+    }&absent_colour=${
+    encodeURIComponent(absentColour)
+    }&occupied_colour=${
+    encodeURIComponent(occupiedColour)
+    }`,
   )
 
 /**
@@ -67,7 +79,10 @@ const reduceSeatInfo = maps =>
         total: obj.total + mapCapacity,
       }
     },
-    { occupied: 0, total: 0 },
+    {
+      occupied: 0,
+      total: 0,
+    },
   )
 
 const getSeatingInfo = async surveyId => {
@@ -78,7 +93,7 @@ const getSeatingInfo = async surveyId => {
         token: process.env.UCLAPI_TOKEN,
         survey_ids: surveyId,
       },
-    }
+    },
   )).data
   const { surveys } = data
   if (surveys.length !== 1) {
@@ -98,9 +113,15 @@ const reduceAverageData = averages => {
     const avrObj = hours.reduce(
       (acc, obj) =>
         obj.hour === i
-          ? { total: acc.total + obj.occupied, count: acc.count + 1 }
+          ? {
+            total: acc.total + obj.occupied,
+            count: acc.count + 1,
+          }
           : acc,
-      { total: 0, count: 0 },
+      {
+        total: 0,
+        count: 0,
+      },
     )
     return avrObj.total / avrObj.count
   })
@@ -115,7 +136,7 @@ const getHistoricSeatInfo = async surveyId => {
         survey_ids: surveyId,
         days: 30,
       },
-    }
+    },
   )).data
   const { surveys } = data
   if (surveys.length !== 1) {
@@ -132,7 +153,7 @@ const getAllSeatInfo = async () => {
       params: {
         token: process.env.UCLAPI_TOKEN,
       },
-    }
+    },
   )).data
   const { surveys } = data
   return cleanWorkspaces(
@@ -148,7 +169,12 @@ const getAllSeatInfo = async () => {
           total: map.sensors_absent + map.sensors_other + map.sensors_occupied,
         })),
       }))
-      .filter(workspace => !(workspace.occupied === 0 && workspace.total === 0))
+      .filter(
+        workspace => !(
+          workspace.occupied === 0
+          && workspace.total === 0
+        ),
+      ),
   )
 }
 

@@ -2,7 +2,8 @@
   "extends": [
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:security/recommended"
+    "plugin:security/recommended",
+    "plugin:sonarjs/recommended"
   ],
   "parser": "babel-eslint",
   "env": {
@@ -15,7 +16,8 @@
     "import",
     "security",
     "no-secrets",
-    "json"
+    "json",
+    "sonarjs"
   ],
   "rules": {
     "semi": [
@@ -31,6 +33,15 @@
       "error",
       "backtick"
     ],
+    "no-var": "error",
+    "prefer-const": "error",
+    "max-len": [
+      "warn",
+      {
+        "code": 80
+      }
+    ],
+    "object-property-newline": "error",
     "no-console": "off",
     "no-secrets/no-secrets": "error",
     "security/detect-object-injection": "off",

@@ -39,7 +39,8 @@ if (
   !process.env.UCLAPI_TOKEN
 ) {
   console.error(
-    `Error! You have not set the UCLAPI_CLIENT_ID, UCLAPI_TOKEN, or UCLAPI_CLIENT_SECRET environment variables.`,
+    `Error! You have not set the UCLAPI_CLIENT_ID, ` +
+    `UCLAPI_TOKEN, or UCLAPI_CLIENT_SECRET environment variables.`,
   )
   console.log(`Please set them to run this app.`)
   process.abort()
@@ -47,13 +48,16 @@ if (
 
 if (!process.env.SECRET) {
   console.warn(
-    `Warning: You have not set the SECRET environment variable. This is not secure and definitely not recommended.`,
+    `Warning: You have not set the SECRET environment variable. ` +
+    `This is not secure and definitely not recommended.`,
   )
 }
 
 if (!process.env.NOTIFICATIONS_URL) {
   console.warn(
-    `Warning: You have not set the NOTIFICATION_URL environment variable. This means that notification actions will be disabled.`,
+    `Warning: You have not set the NOTIFICATION_URL ` +
+    `environment variable. This means that notification ` +
+    `actions will be disabled.`,
   )
 }
 
@@ -98,7 +102,9 @@ app.use(mount(UCLAPI))
 app.use(mount(router))
 
 if (!module.parent) {
-  app.listen(process.env.PORT || 3000)
+  const port = process.env.PORT || 3000
+  app.listen(port)
+  console.log(`UCL Assistant API listening on ${port}`)
 }
 
 module.exports = app
