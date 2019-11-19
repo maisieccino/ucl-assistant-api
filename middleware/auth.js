@@ -14,7 +14,12 @@ const jwtVerify = koaJwt({
 })
 
 // bypass JWT auth for local development
-const jwtVerifyDev = (ctx, next) => next()
+const jwtVerifyDev = async (ctx, next) => {
+  ctx.state = {
+    user: { apiToken: process.env.UCLAPI_TOKEN },
+  }
+  return await next()
+}
 
 const genToken = user => jwt.sign(user, process.env.SECRET)
 

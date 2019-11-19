@@ -1,7 +1,10 @@
 const WORKSPACE_PATH = `/workspaces`
 const PEOPLE_PATH = `/people`
 const ROOMS_PATH = `/rooms`
+const TIMETABLE_PATH = `/timetable`
 module.exports = {
+  TIMETABLE_PERSONAL_PATH: `${TIMETABLE_PATH}/personal`,
+  TIMETABLE_MODULE_PATH: `${TIMETABLE_PATH}/module`,
   WORKSPACE_SURVEYS_PATH: `${WORKSPACE_PATH}/surveys`,
   WORKSPACE_SUMMARY_PATH: `${WORKSPACE_PATH}/summary`,
   WORKSPACE_HISTORIC_DATA_PATH: `${WORKSPACE_PATH}/historic`,

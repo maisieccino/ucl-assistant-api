@@ -86,7 +86,7 @@ const reduceSeatInfo = maps =>
   )
 
 const getSeatingInfo = async surveyId => {
-  const data = (await axios.get(
+  const { data } = (await axios.get(
     WORKSPACE_SUMMARY_URL,
     {
       params: {
@@ -94,7 +94,7 @@ const getSeatingInfo = async surveyId => {
         survey_ids: surveyId,
       },
     },
-  )).data
+  ))
   const { surveys } = data
   if (surveys.length !== 1) {
     throw new Error(`Survey with that id not found.`)
@@ -128,7 +128,7 @@ const reduceAverageData = averages => {
 }
 
 const getHistoricSeatInfo = async surveyId => {
-  const data = (await axios.get(
+  const { data: { surveys } } = (await axios.get(
     WORKSPACE_HISTORIC_URL,
     {
       params: {
@@ -137,12 +137,14 @@ const getHistoricSeatInfo = async surveyId => {
         days: 30,
       },
     },
-  )).data
-  const { surveys } = data
+  ))
   if (surveys.length !== 1) {
     throw new Error(`Survey with that id not found`)
   }
   const { averages } = surveys[0]
+  if (Object.keys(averages).length === 0) {
+    throw new Error(`No historical data available`)
+  }
   return reduceAverageData(averages)
 }
 

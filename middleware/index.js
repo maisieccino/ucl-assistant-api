@@ -62,6 +62,7 @@ const jsonify = async (ctx, next) => {
       ctx.error = JSON.stringify(error.message, `\n`, 2)
     }
     ctx.status = error.status || 500
+    ctx.body = { error: ctx.error }
   }
 
   if (ctx.state.jsonify) {

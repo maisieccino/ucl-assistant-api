@@ -13,7 +13,10 @@
  */
 const loadOrFetch = async (ctx, key, fetchNewData, ttl) => {
 
-  const skipCache = process.env.TEST_MODE === `true` || process.env.NODE_ENV === `development`
+  const skipCache = (
+    process.env.TEST_MODE === `true` ||
+    process.env.NODE_ENV === `development`
+  )
   if (!skipCache) {
     const cacheData = await ctx.redisGet(key)
     if (cacheData) {
