@@ -47,7 +47,7 @@ router.get(`/timetable`, jwt, async ctx => {
 
   const timetableData = await loadOrFetch(
     ctx,
-    `${TIMETABLE_PERSONAL_PATH}/${ctx.state.user.upi}`,
+    `${TIMETABLE_PERSONAL_PATH}/${ctx.state.user.upi}/${date}`,
     async () => getPersonalTimetable(ctx.state.user.apiToken, date),
     TIMETABLE_TTL,
   )
@@ -64,7 +64,7 @@ router.get(`/timetable/:module`, jwt, async ctx => {
 
   const timetableData = await loadOrFetch(
     ctx,
-    `${TIMETABLE_MODULE_PATH}/${timetableModule}`,
+    `${TIMETABLE_MODULE_PATH}/${timetableModule}/${date}`,
     async () => getModuleTimetable(
       ctx.state.user.apiToken,
       timetableModule,
