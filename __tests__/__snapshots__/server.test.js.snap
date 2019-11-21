@@ -107,6 +107,14 @@ Array [
     "name": "Pearson Building B01",
   },
   Object {
+    "id": 87,
+    "name": "Master Other",
+  },
+  Object {
+    "id": 86,
+    "name": "Master Library",
+  },
+  Object {
     "id": 64,
     "name": "Gordon SQ 31-34 & 14 Taviton Street 501",
   },
