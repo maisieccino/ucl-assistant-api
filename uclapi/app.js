@@ -143,13 +143,14 @@ router.get(`/workspaces/getliveimage/map.svg`, jwt, async ctx => {
 })
 
 router.get(`/workspaces/summary`, jwt, async ctx => {
-  const data = await loadOrFetch(
+  const { data, lastModified } = await loadOrFetch(
     ctx,
     WORKSPACE_SUMMARY_PATH,
     async () => getAllSeatInfo(),
     WORKSPACE_SUMMARY_TTL,
   )
   ctx.body = data
+  ctx.set(`Last-Modified`, lastModified)
 })
 
 router.get(`/workspaces/historic`, jwt, async ctx => {
