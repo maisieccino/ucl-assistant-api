@@ -17,7 +17,7 @@ describe(`people`, () => {
           token: process.env.UCLAPI_TOKEN,
           query,
         },
-      }
+      },
     )
 
     peopleSearch(query)
